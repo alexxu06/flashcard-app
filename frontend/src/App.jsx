@@ -1,27 +1,18 @@
 import { useState } from 'react'
+import { Routes, Route } from 'react-router'
 import './App.css'
 import HomePage from './pages/home/HomePage'
-import axios from "axios";
+import ProtectedRoute from './components/ProtectedRoute'
+import LandingPage from './pages/landing/LandingPage';
 
 function App() {
-    const [testThing, setTestThing] = useState("");
-
-    const test = () => {
-        axios.get("api/test")
-        .then(function (response) {
-            console.log(response)
-            setTestThing(response.data.test)
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
-    }
 
   return (
     <div>
-        <HomePage />
-        <button onClick={test}>test</button>
-        <p>{testThing}</p>
+        <Routes>
+            <Route index element={<LandingPage />}/>
+            <Route path="home" element={<HomePage />}/>
+        </Routes>
     </div>
   )
 }
