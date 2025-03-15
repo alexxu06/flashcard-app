@@ -51,8 +51,9 @@ function LandingPage() {
   return (
     <div className='landing-container'>
         <NavigationBar />
-        <h2 className="landing-title">Welcome to SmartCard, the new best way to make flashcards!</h2>
         
+        <h2 class="landing-title">SmartCard. The new way to make flashcards.</h2>        
+
         <div className='landing-cards'>
             <LandingCard
                 imgLink={<img src={Account} alt="Voila" />}
@@ -73,7 +74,7 @@ function LandingPage() {
 
         <button className="signup-button">Sign Up</button>
 
-        <input type="file" onChange={handleFile} />
+        {/* <input type="file" onChange={handleFile} />
         <button type="submit" onClick={uploadFile}>Upload</button>
 
         <h2>Generated Flashcards for {deckName}</h2>
@@ -86,7 +87,7 @@ function LandingPage() {
             ))
         ) : (
             <p>No flashcards generated yet.</p>
-        )}
+        )} */}
     </div>
   )
 }

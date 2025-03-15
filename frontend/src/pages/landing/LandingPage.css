@@ -1,3 +1,10 @@
+.landing-title {
+    color: white; /* Make the text white */
+    font-size: 2.5rem; /* Increase font size */
+    font-weight: bold; /* Make it stand out */
+    margin-top: 2rem; /* Add space above the title */
+}
+
 .landing-container {
     text-align: center;
     display: flex;
@@ -41,22 +48,26 @@
     margin-bottom: 0.5rem;
 }
 
-/* Sign up button */
 .signup-button {
     background-color: #ffead2;
     align-self: center;
-    border-width: 0;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    border: none;
+    padding: 1rem;
     width: 50%;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 1.5rem;
-    box-shadow: 5px 5px hwb(0 0% 100% / 0.5);
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .signup-button:hover {
     cursor: pointer;
+    background-color: #ffd4a3; /* Slightly darker shade on hover */
+    transform: scale(1.01); /* Slight zoom-in effect */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
 }
+
 
 /* Responsive behavior - stack vertically when too small */
 @media (max-width: 700px) {
