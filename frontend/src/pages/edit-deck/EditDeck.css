@@ -14,7 +14,7 @@
 .central-container {
     width: 100%;
     background-color: var(--darkest);
-    padding: 20px;
+    padding: 20px, 30px, 20px, 30px;
     border-radius: 12px;
     max-height: 800px; /* Ensure it has a height limit */
     overflow-y: auto; /* Enable vertical scrolling */
@@ -23,7 +23,8 @@
 }
 
 .pdfTitle {
-    font-size: 2rem;
+    width:10%;
+    font-size: 2.5rem;
     font-weight: bold;
     color: white;
     margin-bottom: 25px;
