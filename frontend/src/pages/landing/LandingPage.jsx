@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import './LandingPage.css'
-import '../../components/SideBar.css'
-import SideBar from '../../components/SideBar.jsx'
+import NavigationBar from '../../components/navigation-bar/NavigationBar'
 
 function LandingPage() {
 
   return (
-    <SideBar pdfList={['pdf 1', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2', 'pdf 2']}/>
+    <div className='landing-container'>
+        <NavigationBar></NavigationBar>
+        <p>Welcome to SmartCard, the new best way to make flashcards!</p>
+    </div>
   )
 }
 
