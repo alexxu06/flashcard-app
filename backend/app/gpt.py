@@ -31,5 +31,6 @@ with open('test.pdf', 'rb') as pdf_file:
         )
         # The index 0 accesses the first choice of generated responses.
         page_summary = response.choices[0].message.content
+        
 
     print(page_summary)
