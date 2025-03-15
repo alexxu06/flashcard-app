@@ -4,6 +4,7 @@ import '../../components/SideBar.css'
 import SideBar from '../../components/SideBar'
 import '../../components/navigation-bar/NavigationBar.css'
 import NavigationBar from '../../components/navigation-bar/NavigationBar'
+import StartAdding from '../../components/start-adding/StartAdding'
 import './HomePage.css'
 import axios from "axios";
 
@@ -20,13 +21,13 @@ function HomePage() {
             console.log(error)
         })
     }
-
-  return (
-    <>
-        <NavigationBar/>
-        <SideBar/>
-    </>
-  )
+    return (
+        <>
+            <NavigationBar/>
+            <SideBar/>
+            <StartAdding/>
+        </>
+    )
 }
 
 export default HomePage
