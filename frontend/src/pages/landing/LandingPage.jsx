@@ -16,11 +16,7 @@ function LandingPage() {
         console.log(file)
         formData.append('file', file)
         console.log(formData)
-        axios.post("api/pdf-to-flashcard", formData, {
-            headers: {
-                'Content-Type': undefined,
-            },
-        })
+        axios.post("api/pdf-to-flashcard", formData)
         .then(function (response) {
             console.log(response)
             // setTestThing(response.data)
