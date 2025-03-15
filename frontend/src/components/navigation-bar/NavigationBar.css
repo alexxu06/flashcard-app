@@ -1,6 +1,8 @@
 .navigation-bar {
     display: flex;
     background-color: #acb1d6;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
     font-size: 2rem;
 }
@@ -17,7 +19,7 @@
 }
 
 .padding {
-    width: 50%;
+    flex-grow: 1;
 }
 
 .signup-login-button {

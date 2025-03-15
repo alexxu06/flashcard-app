@@ -7,7 +7,7 @@ function LandingPage() {
   return (
     <div className='landing-container'>
         <NavigationBar></NavigationBar>
-        <p>This is the landing page</p>
+        <p>Welcome to SmartCard, the new best way to make flashcards!</p>
     </div>
   )
 }
