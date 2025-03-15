@@ -87,7 +87,7 @@ def check_auth():
 
 # Get pdf 
 @app.route("/api/pdf-to-flashcard", methods=["POST"])
-# @jwt_required()  # Ensure the user is authenticated before uploading a PDF
+@jwt_required()  # Ensure the user is authenticated before uploading a PDF
 def generate_flashcards_from_pdf():
     pdf_file = request.files['file']
 
@@ -105,4 +105,27 @@ def generate_flashcards_from_pdf():
         if os.path.exists(file_path):
             os.remove(file_path)
 
-    return jsonify({"gpt_results": result, "deck_name": filename})
+    # Get current user ID from token
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    # Clean filename (remove .pdf)
+    deck_name = filename.rsplit(".", 1)[0]
+
+    # Save deck
+    new_deck = Deck(name=deck_name, user_id=user.id)
+    db.session.add(new_deck)
+    # db.session.flush()  # So new_deck.id is available for FK
+
+    # Save flashcards
+    for card in result:
+        new_card = Flashcard(front=card['question'], back=card['answer'], deck_id=new_deck.id)
+        db.session.add(new_card)
+
+    db.session.commit()
+
+    print(f"Deck created: {new_deck}")
+    for card in new_flashcards:
+        print(f"Flashcard: Q='{card.front}', A='{card.back}'")
+    
+    return jsonify({"gpt_results": result, "deck_name": deck_name})
