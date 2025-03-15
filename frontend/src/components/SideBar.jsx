@@ -1,6 +1,12 @@
 import { useState } from "react";
 
 function SideBar(props) {
+    let pdfList
+    if (props?.someProperty == undefined) { //No prop-types module so this is the default value
+        pdfList = []
+    } else {
+        pdfList = props.pdfList
+    }
     let clicked_target = null;
     const clicked = (e, pdfName) => {
         if (clicked_target != null) {
@@ -15,7 +21,7 @@ function SideBar(props) {
         clicked_target = e.target
     }
 
-    const currentPdfList = props.pdfList.map((pdfName, index) => (
+    const currentPdfList = pdfList.map((pdfName, index) => (
         <button onClick={(e, pdfName) => clicked(e, pdfName)} key={index} className="pdf-sidebar">{pdfName}</button>
     ));
 

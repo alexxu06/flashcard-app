@@ -1,5 +1,10 @@
 import { useState } from 'react'
 import './HomePage.css'
+import '../../components/SideBar.css'
+import SideBar from '../../components/SideBar'
+import '../../components/navigation-bar/NavigationBar.css'
+import NavigationBar from '../../components/navigation-bar/NavigationBar'
+import './HomePage.css'
 import axios from "axios";
 
 function HomePage() {
@@ -17,11 +22,10 @@ function HomePage() {
     }
 
   return (
-    <div className='home-container'>
-        <p>hi</p>
-        <button onClick={test}>test</button>
-        <p>{testThing}</p>
-    </div>
+    <>
+        <NavigationBar/>
+        <SideBar/>
+    </>
   )
 }
 
