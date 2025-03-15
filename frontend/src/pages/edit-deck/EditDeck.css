@@ -3,18 +3,33 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
-    max-height: 80%;
+    width: 60%;
+    height: 80%;
     position: absolute;
-    top: 50%;
-    left: calc(50% + 150px); 
-    transform: translate(-50%, -42%);
+    top: max(200px, 50%); /* Ensures it never goes above 30px */
+    left: max(550px, calc(50% + 150px));
+    transform: translate(-50%, -45%);
+    padding: 20px;
+    text-align: center;
+    overflow-y: auto;
+}
+
+.confirm-button {
+    color: white;
+    background: var(--second-darkest);
+    border: none;
+    padding: 8px 12px;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .central-container {
     width: 100%;
     background-color: var(--darkest);
-    padding: 20px;
+    padding: 20px, 30px, 20px, 30px;
     border-radius: 12px;
     max-height: 800px; /* Ensure it has a height limit */
     overflow-y: auto; /* Enable vertical scrolling */
@@ -23,10 +38,13 @@
 }
 
 .pdfTitle {
-    font-size: 2rem;
+    width:10%;
+    font-size: 2.5rem;
     font-weight: bold;
     color: white;
     margin-bottom: 25px;
+    padding-left: 8px;
+    padding-top: 8px;
 }
 
 .card {
@@ -34,9 +52,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: white;
+    background: var(--darkest);
     margin: 10px 0;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .card textarea {

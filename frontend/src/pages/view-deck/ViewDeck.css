@@ -1,0 +1,111 @@
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 80%;
+    position: absolute;
+    top: max(200px, 50%); /* Ensures it never goes above 30px */
+    left: max(550px, calc(50% + 150px));
+    transform: translate(-50%, -55%);
+    padding: 20px;
+    text-align: center;
+    overflow-y: auto;
+}
+
+.confirm_button {
+    color: white;
+    background: var(--second-darkest);
+    border: none;
+    padding: 8px 12px;
+    font-size: 2.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Upper Box Styling */
+.upper-box {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    padding-bottom: 2%;
+    margin-top: 55px
+}
+
+.upper-box h1 {
+    font-size: 2.1rem;
+    margin: 0;
+}
+
+.upper-box button {
+    color: white;
+    background: var(--second-darkest);
+    border: none;
+    padding: 8px 12px;
+    font-size: 2.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upper-box button:hover {
+    background: var(--darkestdarkest);
+}
+
+.card {
+    width: 95%;
+    height: 100%;
+    background: var(--lightest);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-height: 250px;
+    cursor: pointer;
+    overflow-y: auto; 
+}
+
+.card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 13px;
+}
+
+.cardText {
+    font-size: 1rem;
+    color: #333;
+}
+
+.card-navigation {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.card-navigation button {
+    background: var(--third-darkest);
+    border: none;
+    padding: 8px 12px;
+    font-size: 2rem;
+    border-radius: 5px;
+    width: 150px;
+    height: 55px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card-navigation button:hover {
+    background: var(--darkestdarkest);
+    color: white;
+}
+
+.card::selection, 
+.cardText::selection, 
+h2::selection {
+    background: transparent; /* Removes the highlight effect, undesireable effect but still selectable */
+    color: inherit; /* Keeps the text color unchanged */
+}
