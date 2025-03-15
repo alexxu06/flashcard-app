@@ -1,5 +1,14 @@
+:root {
+    --darkestdarkest: #6F80AC;
+    --darkest: #8294C4;
+    --second-darkest: #ACB1D6;
+    --third-lightest: #DBDFEA;
+    --lightest: #FFEAD2;
+}
+
 * {
     margin: 0;
     padding: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+

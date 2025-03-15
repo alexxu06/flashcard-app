@@ -1,0 +1,116 @@
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--darkest);
+}
+
+.login-box {
+    font-size: 22px;
+    background-color: white;
+    color: black;
+    padding: 40px;
+    border-radius: 8px;
+    width: 35%;
+    text-align: center;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 100%; /* Ensure the box takes up the full width */
+    padding: 1rem 2rem;
+    box-sizing: border-box; /* Prevent padding from messing with width */
+    margin-top: 2rem;
+    border: 2px solid var(--darkest);
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.input-box input {
+    width: 100%;
+    box-sizing: border-box; /* Make padding part of the width */
+    padding: 10px;
+    color: black;
+}
+
+/* Input container to hold label, field, and highlight */
+.input-container {
+    position: relative;
+    width: 100%; /* Ensure container stretches fully */
+    margin: 2rem; /* Reduce spacing to keep things clean */
+}
+/* Input field styling */
+.input-field {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    background-color: transparent;
+    box-sizing: border-box; /* Again, padding included in width */
+}
+
+/* Input label */
+.input-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    color: rgba(204, 204, 204, 0);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* Input highlight (underline animation) */
+.input-highlight {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+}
+  
+  /* Input field:focus styles */
+.input-field:focus + .input-label {
+    top: -20px;
+    font-size: 16px;
+    color: var(--darkest);
+}
+  
+.input-field:focus + .input-label + .input-highlight {
+    width: 100%;
+}
+
+
+.signup-text {
+    color: var(--darkest);
+    p
+}
+
+.signup-text span {
+    color: var(--darkest);
+}
+
+.login-button {
+    background-color: var(--second-darkest);
+    color: white;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.login-button:hover {
+    background-color: var(--darkestdarkest);
+}
