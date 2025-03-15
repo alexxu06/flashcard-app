@@ -9,10 +9,9 @@ import Account from "./svg/account.svg";
 
 
 function LandingPage() {
-    const [file, setFile] = useState(null)
     const [testThing, setTestThing] = useState([]);
     const [deckName, setDeckName] = useState("Your Deck");
-    
+    const [file, setFile] = useState(null)
 
     const handleFile = (e) => {
         setFile(e.target.files[0])
@@ -29,20 +28,22 @@ function LandingPage() {
         console.log(file);
         formData.append('file', file);
         console.log(formData);
-        
-        axios.post("api/pdf-to-flashcard", formData, {
+
+        axios.post("/api/pdf-to-flashcard", formData, {
+            withCredentials: true,
             headers: {
-              'Content-Type': 'multipart/form-data',
-              'X-XSRF-TOKEN': getCookie('csrf_access_token')
-            },
-            withCredentials: true  // Make sure credentials (cookies) are sent
-          })
-            .then(function (response) {
+                'X-CSRF-TOKEN': getCookie('csrf_access_token'),
+            }
+        })
+        .then(function (response) {
                 console.log("API Response:", response);
 
                 const flashcards = response.data.gpt_results;
                 const deck_name = response.data.deck_name;
-                setDeckName(deck_name || "Your Deck")
+
+                // Remove file extension '.pdf' from deck name
+                const cleanDeckName = deck_name.replace(/\.[^/.]+$/, "");
+                setDeckName(cleanDeckName || "Your Deck");
 
                 if (Array.isArray(flashcards)) {
                     setTestThing(flashcards);  
@@ -98,7 +99,6 @@ function LandingPage() {
         ) : (
             <p>No flashcards generated yet.</p>
         )}
-
     </div>
   )
 }
