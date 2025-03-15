@@ -43,7 +43,7 @@ def signup():
     if User.query.filter(User.email==email).first():
         return "Email already in use", 401
     
-    user = User(email=email, username=username, admin=admin)
+    user = User(email=email, username=username)
     user.set_password(password)
     db.session.add(user)
     db.session.commit()
@@ -90,7 +90,6 @@ def check_auth():
 # @jwt_required()  # Ensure the user is authenticated before uploading a PDF
 def generate_flashcards_from_pdf():
     pdf_file = request.files['file']
-    print(pdf_file)
 
     if not pdf_file:
         return jsonify({"error": "PDF file not attached"}), 400
@@ -100,6 +99,8 @@ def generate_flashcards_from_pdf():
     pdf_file.save(file_path)
 
     result = gpt.process_pdf(file_path)
-    print(result)
 
-    return jsonify({"gpt_results": result})
+    print(f"Type of result: {type(result)}")
+    print(f"Content of result: {result}")
+
+    return result
