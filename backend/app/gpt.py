@@ -14,7 +14,7 @@ def parse_flashcards(page_summary):
         {"question": q.strip(), "answer": a.strip()} for q, a in flashcards
     ]
 
-    return json.dumps(cards, indent=4)
+    return cards  
 
 
 def process_pdf(file_path):
@@ -47,7 +47,7 @@ def process_pdf(file_path):
             # The index 0 accesses the first choice of generated responses.
             page_summary = response.choices[0].message.content
 
-            cards_json = parse_flashcards(page_summary)
+            flashcards = parse_flashcards(page_summary)
 
-        return cards_json
+        return flashcards
 

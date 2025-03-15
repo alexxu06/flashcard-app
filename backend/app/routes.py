@@ -57,7 +57,7 @@ def signup():
 # Login route
 @app.route("/api/login", methods=["POST"])
 def login():
-    email = request.json.get("username", None)
+    email = request.json.get("email", None)
     password = request.json.get("password", None)
 
     user = User.query.filter(User.email==email).one_or_none()
@@ -100,7 +100,4 @@ def generate_flashcards_from_pdf():
 
     result = gpt.process_pdf(file_path)
 
-    print(f"Type of result: {type(result)}")
-    print(f"Content of result: {result}")
-
-    return result
+    return jsonify({"gpt_results": result})
