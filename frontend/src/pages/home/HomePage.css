@@ -1,3 +1,7 @@
+html{
+    overflow: hidden;
+}
+
 .home-container {
     background-color: red;
     padding: 10rem;
