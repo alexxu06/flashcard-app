@@ -1,6 +1,12 @@
 .container {
     display: flex;
-    height: 100%;
+    max-height: calc(100vh - 60px); /* Subtract 200px from the full height */
+    overflow: hidden; /* Prevents unwanted scrolling */
+}
+
+.container > * {
+    flex-shrink: 1; /* Allows child elements to shrink if needed */
+    min-height: 0; /* Prevents flex children from forcing height */
 }
 
 .side-bar {
@@ -10,9 +16,10 @@
     width: 300px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; 
-    height: 93vh; 
-    overflow-y: auto;
+    justify-content: flex-start;
+    height: calc(100vh - 60px);
+    overflow-y: auto; 
+    flex-shrink: 0; 
 }
 
 .side-bar p {
@@ -20,12 +27,13 @@
     font-weight: bold;
 }
 
-.decks-space{
+.decks-space {
     background-color: var(--second-darkest);
-    display: flex; 
-    height: 10%;
+    display: flex;
     align-items: center;
-    margin-left: 3%
+    padding: 10px;
+    margin-left: 3%;
+    min-height: 50px; 
 }
 
 .side-bar hr {
@@ -45,28 +53,35 @@
     font-size: 1rem;
     text-align: left;
     width: 100%;
+    transition: 0.3s ease;
 }
+
+.pdf-sidebar:hover {
+    background-color: var(--darkest);
+}
+.pdf-sidebar.active {
+    background-color: #8294c4;
+}
+
 
 .add-new-decks {
     background-color: var(--lightest);
     color: white;
     border: none;
     padding: 10px;
-    margin-top: 20px;
     cursor: pointer;
     font-size: 1rem;
     width: 100%;
-    height: 10%;
-    margin-top: auto;
+    height: 60px; /* Ensures a fixed height */
+    flex-shrink: 0; /* Prevents shrinking */
+    margin-top: auto; /* Pushes it to the bottom */
 }
 
-.pdf-sidebar:hover {
-    background-color: var(--darkest);
-}
+
 
 .scrollable-section {
-    overflow-y: scroll; /* Enables vertical scrolling */
-    direction: rtl;
+    overflow-y: auto; 
+    flex-grow: 1; 
+    width: 100%;
     display: block;
 }
-  
