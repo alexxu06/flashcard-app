@@ -20,7 +20,7 @@ function NavigationBar() {
         .catch(function (error) {
             console.log(error)
             // setIsAuthorized(false)
-            setBtnLabel("Sign Up / Login")
+            setBtnLabel("Login")
             setIsAuthorized(false)
         })
     }
@@ -51,7 +51,7 @@ function NavigationBar() {
         <div className='navigation-bar'>
             <div className='title'>SmartCard</div>
             <div className='padding'></div>
-            <button className='signup-login-button' onClick={isAuthorized? logout : loginNav}>{btnLabel}</button>
+            <button className='landing-page-login-button' onClick={isAuthorized? logout : loginNav}>{btnLabel}</button>
         </div>
     )
 }

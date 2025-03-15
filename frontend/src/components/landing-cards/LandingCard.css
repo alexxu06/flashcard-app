@@ -1,0 +1,12 @@
+.landing-card {
+    background-color: var(--third-darkest);
+    padding: 1rem 1rem;
+    width: 15rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px hwb(0 0% 100% / 0.5);
+}
+
+.landing-card img {
+    width: 20vh;
+    height: 20vh;
+}
