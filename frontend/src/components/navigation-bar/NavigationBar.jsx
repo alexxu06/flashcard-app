@@ -39,7 +39,7 @@ function NavigationBar() {
             withCredentials: true
         })
         .then(function (response) {
-            // navigate("/login");
+            navigate("/login");
             console.log(response)
         })
         .catch(function (error) {

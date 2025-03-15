@@ -2,12 +2,26 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 import PyPDF2
+import json
+import re
+
+def parse_flashcards(page_summary):
+    # Regex to extract questions and answers
+    flashcards = re.findall(r"Q:\s*(.*?)\s*A:\s*(.*?)\s*(?=Q:|$)", page_summary, re.DOTALL)
+
+    # Convert to JSON format
+    cards = [
+        {"question": q.strip(), "answer": a.strip()} for q, a in flashcards
+    ]
+
+    return cards  
+
 
 def process_pdf(file_path):
     # Load environment variables
     load_dotenv()
 
-    with open('test.pdf', 'rb') as pdf_file:
+    with open(file_path, 'rb') as pdf_file:
         pdf_reader = PyPDF2.PdfReader(pdf_file)
 
         # grabs the API key from the environment file
@@ -32,5 +46,8 @@ def process_pdf(file_path):
             )
             # The index 0 accesses the first choice of generated responses.
             page_summary = response.choices[0].message.content
-            
-        return page_summary
+
+            flashcards = parse_flashcards(page_summary)
+
+        return flashcards
+

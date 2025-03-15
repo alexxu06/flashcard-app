@@ -1,12 +1,47 @@
 import './LoginPage.css'
+import { useState } from "react";
 import { useNavigate } from 'react-router'
+import axios from "axios";
 
 function LoginPage() {
-
     let navigate = useNavigate(); 
+    
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     const SignupNav = () => {
         navigate("/signup")
+    }
+
+    const login = () => {
+        if (email.trim() == "") {
+            alert("Please enter an email");
+        } else if (password.trim() == "") {
+            alert("Please enter a password");
+        } else {
+            axios.post("/api/login", {
+                email: email,
+                password: password
+            }, {
+                withCredentials: true
+            })
+            .then(function (response) {
+                console.log(response)
+                navigate("/home")
+            })
+            .catch(function (error) {
+                console.log(error)
+                alert(error.response.data)
+            })
+        }
+    }
+
+    const onEmailChange = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const onPasswordChange = (e) => {
+        setPassword(e.target.value)
     }
 
     return(
@@ -17,16 +52,16 @@ function LoginPage() {
                 
                 <div className="input-box">
 
-                    <div class="input-container">
-                        <input placeholder="Email" class="input-field" type="email"/>
-                        <label for="input-field" class="input-label">Enter Email</label>
-                        <span class="input-highlight"></span>
+                    <div className="input-container">
+                        <input onChange={onEmailChange} placeholder="Email" className="input-field" type="email"/>
+                        <label for="input-field" className="input-label">Enter Email</label>
+                        <span className="input-highlight"></span>
                     </div>
 
-                    <div class="input-container">
-                        <input placeholder="Password" class="input-field" type="password"/>
-                        <label for="input-field" class="input-label">Enter Password</label>
-                        <span class="input-highlight"></span>
+                    <div className="input-container">
+                        <input onChange={onPasswordChange} placeholder="Password" className="input-field" type="password"/>
+                        <label for="input-field" className="input-label">Enter Password</label>
+                        <span className="input-highlight"></span>
                     </div>
 
                     <p className="signup-text">
@@ -34,7 +69,7 @@ function LoginPage() {
                     </p>
                 </div>
 
-                <button className="login-button">Login</button>
+                <button className="login-button" onClick={login}>Login</button>
             </div>
 
         </div>

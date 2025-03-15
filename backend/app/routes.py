@@ -4,7 +4,7 @@ from flask_jwt_extended import *
 from app.models import User, Deck, Flashcard
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta, timezone
-import gpt  
+from app import gpt
 import os
 import json
 
@@ -43,7 +43,7 @@ def signup():
     if User.query.filter(User.email==email).first():
         return "Email already in use", 401
     
-    user = User(email=email, username=username, admin=admin)
+    user = User(email=email, username=username)
     user.set_password(password)
     db.session.add(user)
     db.session.commit()
@@ -57,7 +57,7 @@ def signup():
 # Login route
 @app.route("/api/login", methods=["POST"])
 def login():
-    email = request.json.get("username", None)
+    email = request.json.get("email", None)
     password = request.json.get("password", None)
 
     user = User.query.filter(User.email==email).one_or_none()
@@ -87,7 +87,7 @@ def check_auth():
 
 # Get pdf 
 @app.route("/api/pdf-to-flashcard", methods=["POST"])
-@jwt_required()  # Ensure the user is authenticated before uploading a PDF
+# @jwt_required()  # Ensure the user is authenticated before uploading a PDF
 def generate_flashcards_from_pdf():
     pdf_file = request.files['file']
 
