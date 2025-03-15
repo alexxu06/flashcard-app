@@ -13,7 +13,7 @@ function App() {
     <div>
         <Routes>
             <Route index element={<LandingPage />}/>
-            <Route path="home" element={<HomePage />}/>
+            <Route path="home" element={<ProtectedRoute><HomePage /></ProtectedRoute>}/>
             <Route path="login" element={<LoginPage />}/>
             <Route path="signup" element={<SignupPage />}/>
         </Routes>

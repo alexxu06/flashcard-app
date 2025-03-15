@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'something'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(seconds=10) # short for testing purposes
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2) # short for testing purposes
 
 # Define the upload folder (cwd is the current working directory where the script is running)
 # the .join() method is used to join the current working directory with the uploads folder
