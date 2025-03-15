@@ -4,13 +4,14 @@
 }
 
 .side-bar {
+    border: none;
     background-color: #ACB1D6;
     color: white;
     width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start; 
-    height: 100vh; 
+    height: 93vh; 
     overflow-y: auto;
 }
 
@@ -20,6 +21,7 @@
 }
 
 .decks-space{
+    background-color: #ACB1D6;
     display: flex; 
     height: 10%;
     align-items: center;
@@ -34,7 +36,7 @@
 }
 
 .pdf-sidebar {
-    background: transparent;
+    background-color: #ACB1D6;
     color: white;
     border: none;
     height: 3.5rem;
@@ -45,12 +47,8 @@
     width: 100%;
 }
 
-.pdf-sidebar:hover {
-    background-color: #FFEAD2;
-}
-
 .add-new-decks {
-    background-color: #8294C4;
+    background-color: #FFEAD2;
     color: white;
     border: none;
     padding: 10px;
@@ -62,14 +60,13 @@
     margin-top: auto;
 }
 
-.side-bar button:hover {
-    background-color: #FFEAD2;
+.pdf-sidebar:hover {
+    background-color: #8294C4;
 }
 
 .scrollable-section {
     overflow-y: scroll; /* Enables vertical scrolling */
     direction: rtl;
     display: block;
-    border: 1px solid #ccc;
-  }
+}
   
