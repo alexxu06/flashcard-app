@@ -101,4 +101,5 @@ def generate_flashcards_from_pdf():
 
     result = gpt.process_pdf(file_path)
     print(result)
+
     return jsonify({"gpt_results": result})

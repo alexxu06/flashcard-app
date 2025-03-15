@@ -19,7 +19,7 @@ function LandingPage() {
         axios.post("api/pdf-to-flashcard", formData)
         .then(function (response) {
             console.log(response)
-            // setTestThing(response.data)
+            setTestThing(response.data.gpt_results)
         })
         .catch(function (error) {
             console.log(error)

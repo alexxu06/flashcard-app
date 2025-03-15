@@ -7,7 +7,7 @@ def process_pdf(file_path):
     # Load environment variables
     load_dotenv()
 
-    with open('test.pdf', 'rb') as pdf_file:
+    with open(file_path, 'rb') as pdf_file:
         pdf_reader = PyPDF2.PdfReader(pdf_file)
 
         # grabs the API key from the environment file
