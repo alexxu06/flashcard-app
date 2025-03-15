@@ -98,6 +98,11 @@ def generate_flashcards_from_pdf():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     pdf_file.save(file_path)
 
-    result = gpt.process_pdf(file_path)
+    try:
+        result = gpt.process_pdf(file_path)
+    finally:
+        # Ensures the pdf files gets deleted after processing (even if processing fails)
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     return jsonify({"gpt_results": result, "deck_name": filename})
