@@ -7,6 +7,7 @@
     import LoginPage from './pages/login/LoginPage'
     import SignupPage from './pages/signup/SignupPage'
     import ViewDeck from './components/view-deck/ViewDeck'
+    import StartAdding from './components/start-adding/StartAdding'
 
     function App() {
 
@@ -14,7 +15,7 @@
         <div>
             <Routes>
                 <Route index element={<LandingPage />}/>
-                <Route path="home" element={<ProtectedRoute><HomePage /></ProtectedRoute>}/>
+                <Route path="home" element={<ProtectedRoute><HomePage /><StartAdding /></ProtectedRoute>}/>
                 <Route path="home/:flashdeckId" element={<ProtectedRoute><HomePage /><ViewDeck /> </ProtectedRoute>}/>
                 <Route path="login" element={<LoginPage />}/>
                 <Route path="signup" element={<SignupPage />}/>
