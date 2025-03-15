@@ -10,7 +10,14 @@ function EditDeck(props) {
         pdfName = props.pdfName
     }
     if (props?.cards == undefined) { //No prop-types module so this is the default value
-        cards = []
+        cards = [
+            {question: "Yo im a question", answer: "Yo im an answer"},
+            {question: "Yo im another question", answer: "Yo im another answer"},
+            {question: "wow you got to question three", answer: "impressive you got to answer 3"},
+            {question: "wow you got to question three", answer: "impressive you got to answer 3"},
+            {question: "wow you got to question three", answer: "impressive you got to answer 3"},
+            {question: "wow you got to question three", answer: "impressive you got to answer 3"},
+        ];
     } else {
         cards = props.cards
     }
@@ -37,6 +44,7 @@ function EditDeck(props) {
 
     return (
         <div className="deck-container">
+            <button className="confirm-button">Confirm</button>
             <div className="central-container">
                 <h2 className="pdfTitle">{pdfName}</h2>
                 {cardElements}
