@@ -12,7 +12,6 @@ function HomePage() {
     <>
         <NavigationBar/>
         <SideBar/>
-        <StartAdding/>
     </>
   )
 }
