@@ -67,12 +67,12 @@ function LandingPage() {
 
         <div className='landing-cards'>
             <LandingCard
-                imgLink={<img src={Account} alt="Voila" />}
+                imgLink={<img src={Account} alt="Account" />}
                 header="Create an Account"
                 paragraph="Sign up to SmartCard by clicking the button below"
             />
             <LandingCard
-                imgLink={<img src={Files} alt="Voila" />}
+                imgLink={<img src={Files} alt="Files" />}
                 header="Upload your Notes"
                 paragraph="Submit your notes, textbooks, or other schoolwork to SmartCard in PDF format"
             />
