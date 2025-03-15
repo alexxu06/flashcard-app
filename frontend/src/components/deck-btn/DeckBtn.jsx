@@ -1,6 +1,5 @@
 
-function DeckBtn({ key, pdfName }) {
-    console.log(pdfName)
+function DeckBtn({ pdfName }) {
     // const clicked = (e, key) => {
     //     if (clicked_target != null) {
     //         const previous_target = clicked_target
@@ -14,8 +13,10 @@ function DeckBtn({ key, pdfName }) {
     //     clicked_target = e.target
     // }
 
+    
+
     return (
-        <button key={key} className="pdf-sidebar">
+        <button className="pdf-sidebar">
             {pdfName}
         </button>
     )

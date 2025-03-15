@@ -17,7 +17,6 @@ function SideBar(props) {
                 <hr />
                 <div className="scrollable-section">
                     {flashCardList.map((flashcard, index) => {
-                        console.log(flashcard)
                         return <DeckBtn key = {index} pdfName = {flashcard}/>
                     })}
                 </div>
