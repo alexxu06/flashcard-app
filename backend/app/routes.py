@@ -4,7 +4,7 @@ from flask_jwt_extended import *
 from app.models import User, Deck, Flashcard
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta, timezone
-import gpt  
+from app import gpt
 import os
 import json
 
@@ -87,9 +87,10 @@ def check_auth():
 
 # Get pdf 
 @app.route("/api/pdf-to-flashcard", methods=["POST"])
-@jwt_required()  # Ensure the user is authenticated before uploading a PDF
+# @jwt_required()  # Ensure the user is authenticated before uploading a PDF
 def generate_flashcards_from_pdf():
     pdf_file = request.files['file']
+    print(pdf_file)
 
     if not pdf_file:
         return jsonify({"error": "PDF file not attached"}), 400
@@ -99,5 +100,5 @@ def generate_flashcards_from_pdf():
     pdf_file.save(file_path)
 
     result = gpt.process_pdf(file_path)
-
+    print(result)
     return jsonify({"gpt_results": result})
