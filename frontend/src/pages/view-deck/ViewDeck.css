@@ -14,6 +14,17 @@
     overflow-y: auto;
 }
 
+.confirm_button {
+    color: white;
+    background: var(--second-darkest);
+    border: none;
+    padding: 8px 12px;
+    font-size: 2.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
 /* Upper Box Styling */
 .upper-box {
     width: 95%;
