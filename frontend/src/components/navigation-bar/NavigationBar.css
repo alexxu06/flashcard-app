@@ -1,0 +1,35 @@
+.navigation-bar {
+    display: flex;
+    background-color: #acb1d6;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.title {
+    user-select: none; /* Prevents text selection */
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For older IE/Edge */
+    background-color: #dbdfea;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 25%;
+}
+
+.padding {
+    width: 50%;
+}
+
+.signup-login-button {
+    background-color: #ffead2;
+    border-width: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 25%;
+    border-radius: 0;
+    font-size: 2rem;
+}
+
+.signup-login-button:hover {
+    cursor: pointer;
+}
