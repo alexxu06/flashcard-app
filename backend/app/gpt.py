@@ -40,7 +40,7 @@ def process_pdf(file_path):
                     },
                     {
                         "role": "user",  # what you want the AI to actually do
-                        "content": f"Generate a set of educational flashcards (at least make 5 flashcards) based on the following content. Each flashcard should follow the format 'Q: [Question] A: [Answer]' and focus on clear, concise explanations. Ensure the questions test understanding rather than just recall. Make as many flashcards as you see fit to ensure a solid grasp of the topics. Content: {page_text}"
+                        "content": f"Generate a set of educational flashcards (at least make 6 flashcards) based on the following content. Each flashcard should follow the format 'Q: [Question] A: [Answer]' and focus on clear, concise explanations. Ensure the questions test understanding rather than just recall. Content: {page_text}"
                     }
                 ]
             )
