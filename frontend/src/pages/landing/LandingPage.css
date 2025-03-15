@@ -6,24 +6,72 @@
     background-color: var(--darkest);
 }
 
+/* Updated landing cards layout */
 .landing-cards {
-    padding: 5rem 10rem;
+    padding: 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: nowrap; /* Keep in a single row until forced to wrap */
 }
 
-.signup-button {
-        background-color: #ffead2;
-        align-self: center;
-        border-width: 0;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        width: 25%;
-        border-radius: 5px;
-        font-size: 2rem;
-        box-shadow: 5px 5px hwb(0 0% 100% / 0.5);
+/* Individual card styling */
+.landing-card {
+    flex: 1 1 300px; /* Cards start at 300px wide but shrink if needed */
+    max-width: 400px;
+    min-width: 200px; /* Minimum size before stacking */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s ease;
 }
-    
+
+/* Card hover effect */
+.landing-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Card image styling */
+.landing-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+/* Sign up button */
+.signup-button {
+    background-color: #ffead2;
+    align-self: center;
+    border-width: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 50%;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    box-shadow: 5px 5px hwb(0 0% 100% / 0.5);
+}
+
 .signup-button:hover {
-        cursor: pointer;
+    cursor: pointer;
+}
+
+/* Responsive behavior - stack vertically when too small */
+@media (max-width: 700px) {
+    .landing-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .landing-card {
+        width: 80%;
+        min-width: 250px; /* Ensure cards don't get too tiny */
+    }
+
+    .signup-button {
+        width: 80%;
+        font-size: 1.2rem;
+    }
 }
