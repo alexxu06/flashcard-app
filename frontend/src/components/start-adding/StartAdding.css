@@ -46,26 +46,30 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     color: black;
     border: none;
 }
-
-.footer svg {
-    height: 130%;
-    fill: royalblue;
-    background-color: rgba(70, 66, 66, 0.103);
-    border-radius: 50%;
-    padding: 2px;
-    cursor: pointer;
-    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
+  
+.footer-icon,
+.footer-spacer {
+    width: 55px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.footer p {
-    flex: 1;
+  
+.footer-icon svg {
+    height: 40px;
+    fill: royalblue;
+}
+  
+.footer-text {
+    flex-grow: 1;
     text-align: center;
 }
-
-#file {
-    display: none;
+  
+.footer-text p {
+    margin: 0;
 }
+  
