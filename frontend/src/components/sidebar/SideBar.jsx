@@ -5,9 +5,11 @@ import DeckBtn from "../deck-btn/DeckBtn";
 
 function SideBar(props) {
     const [flashCardList, setFlashCardList] = useState([])
+    const [a, setA] = useState(0)
 
     const addDeck = () => {
-        setFlashCardList(flashCards => [...flashCards, "something"])
+        setFlashCardList(flashCards => [...flashCards, a])
+        setA(prevA => prevA+1)
     }
 
     return (
@@ -17,7 +19,7 @@ function SideBar(props) {
                 <hr />
                 <div className="scrollable-section">
                     {flashCardList.map((flashcard, index) => {
-                        return <DeckBtn key = {index} pdfName = {flashcard}/>
+                        return <DeckBtn key = {index} pdfName = {flashcard} id = {index}/>
                     })}
                 </div>
                 <button onClick={addDeck} className="add-new-decks">Add new decks +</button>
