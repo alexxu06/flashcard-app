@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function SideBar(props) {
     let pdfList
-    if (props?.someProperty == undefined) { //No prop-types module so this is the default value
+    if (props?.props == undefined) { //No prop-types module so this is the default value
         pdfList = []
     } else {
         pdfList = props.pdfList
