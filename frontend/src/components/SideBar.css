@@ -5,7 +5,7 @@
 
 .side-bar {
     border: none;
-    background-color: #ACB1D6;
+    background-color: var(--second-darkest);
     color: white;
     width: 300px;
     display: flex;
@@ -21,7 +21,7 @@
 }
 
 .decks-space{
-    background-color: #ACB1D6;
+    background-color: var(--second-darkest);
     display: flex; 
     height: 10%;
     align-items: center;
@@ -36,7 +36,7 @@
 }
 
 .pdf-sidebar {
-    background-color: #ACB1D6;
+    background-color: var(--second-darkest);
     color: white;
     border: none;
     height: 3.5rem;
@@ -48,7 +48,7 @@
 }
 
 .add-new-decks {
-    background-color: #FFEAD2;
+    background-color: var(--lightest);
     color: white;
     border: none;
     padding: 10px;
@@ -61,7 +61,7 @@
 }
 
 .pdf-sidebar:hover {
-    background-color: #8294C4;
+    background-color: var(--darkest);
 }
 
 .scrollable-section {
