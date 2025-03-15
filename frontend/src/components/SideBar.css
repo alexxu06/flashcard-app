@@ -1,0 +1,75 @@
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.side-bar {
+    background-color: #ACB1D6;
+    color: white;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    height: 100vh; 
+    overflow-y: auto;
+}
+
+.side-bar p {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.decks-space{
+    display: flex; 
+    height: 10%;
+    align-items: center;
+    margin-left: 3%
+}
+
+.side-bar hr {
+    margin: 0;
+    border: 0;
+    width: 100%;
+    border-top: 1px solid #000000;
+}
+
+.pdf-sidebar {
+    background: transparent;
+    color: white;
+    border: none;
+    height: 3.5rem;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: left;
+    width: 100%;
+}
+
+.pdf-sidebar:hover {
+    background-color: #FFEAD2;
+}
+
+.add-new-decks {
+    background-color: #8294C4;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    height: 10%;
+    margin-top: auto;
+}
+
+.side-bar button:hover {
+    background-color: #FFEAD2;
+}
+
+.scrollable-section {
+    overflow-y: scroll; /* Enables vertical scrolling */
+    direction: rtl;
+    display: block;
+    border: 1px solid #ccc;
+  }
+  
