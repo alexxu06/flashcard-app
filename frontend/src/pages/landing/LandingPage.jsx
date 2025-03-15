@@ -4,7 +4,7 @@ import NavigationBar from '../../components/navigation-bar/NavigationBar'
 import axios from "axios";
 
 function LandingPage() {
-    const [testThing, setTestThing] = useState("If successful, whatever backend returns will be here");
+    const [testThing, setTestThing] = useState([]);
     const [file, setFile] = useState(null)
 
     const handleFile = (e) => {
@@ -13,27 +13,49 @@ function LandingPage() {
 
     const uploadFile = () => {
         const formData = new FormData();
-        console.log(file)
-        formData.append('file', file)
-        console.log(formData)
+        console.log(file);
+        formData.append('file', file);
+        console.log(formData);
+
         axios.post("api/pdf-to-flashcard", formData)
-        .then(function (response) {
-            console.log(response)
-            setTestThing(response.data.gpt_results)
-        })
-        .catch(function (error) {
-            console.log(error)
-            setTestThing(error.message)
-        })
-    }
+            .then(function (response) {
+                console.log("API Response:", response);
+
+                const flashcards = response.data.gpt_results;
+                console.log("Flashcards Data Type:", typeof flashcards);
+                console.log("Flashcards Content:", flashcards);
+
+                if (Array.isArray(flashcards)) {
+                    setTestThing(flashcards);  
+                } else {
+                    setTestThing([]); 
+                    console.error("Unexpected data format. Expected array.");
+                }
+            })
+            .catch(function (error) {
+                console.log("API Error:", error);
+                setTestThing([]);
+            });
+    };
 
   return (
     <div className='landing-container'>
-        <NavigationBar></NavigationBar>
+        <NavigationBar />
         <p>Welcome to SmartCard, the new best way to make flashcards!</p>
-        <input type="file" onChange={handleFile}></input>
+        <input type="file" onChange={handleFile} />
         <button type="submit" onClick={uploadFile}>Upload</button>
-        <p>{testThing}</p>
+
+        <h2>Generated Flashcards</h2>
+        {Array.isArray(testThing) && testThing.length > 0 ? (
+            testThing.map((card, index) => (
+                <div key={index} style={{ border: "1px solid black", padding: "10px", marginBottom: "10px" }}>
+                    <h3>Q: {card.question}</h3>
+                    <p>A: {card.answer}</p>
+                </div>
+            ))
+        ) : (
+            <p>No flashcards generated yet.</p>
+        )}
     </div>
   )
 }
