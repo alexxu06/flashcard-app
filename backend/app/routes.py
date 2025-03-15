@@ -2,8 +2,10 @@ from app import app, jwt, db
 from flask import request, jsonify
 from flask_jwt_extended import *
 from app.models import User, Deck, Flashcard
+from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta, timezone
-
+import gpt  
+import os
 import json
 
 @app.after_request
@@ -28,6 +30,7 @@ def user_lookup_callback(_jwt_header, jwt_data):
     email = jwt_data["sub"]
     return User.query.filter_by(email=email).one_or_none()
 
+# Signup route
 @app.route("/api/signup", methods=["POST"])
 def signup():
     email = request.json.get("email", None)
@@ -51,7 +54,7 @@ def signup():
 
     return response
 
-
+# Login route
 @app.route("/api/login", methods=["POST"])
 def login():
     email = request.json.get("username", None)
@@ -59,7 +62,7 @@ def login():
 
     user = User.query.filter(User.email==email).one_or_none()
 
-    if not user:
+    if not user:    
         return "User does not exist", 401
 
     if not user.check_password(password):
@@ -70,6 +73,7 @@ def login():
     set_access_cookies(response, access_token)
     return response
 
+# Logout route
 @app.route("/api/logout", methods=["POST"])
 def logout():
     response = jsonify({"msg": "logout successfully"})
@@ -80,3 +84,20 @@ def logout():
 @jwt_required()
 def check_auth():
     return jsonify({"msg": "success"})
+
+# Get pdf 
+@app.route("/api/pdf-to-flashcard", methods=["POST"])
+@jwt_required()  # Ensure the user is authenticated before uploading a PDF
+def generate_flashcards_from_pdf():
+    pdf_file = request.files['file']
+
+    if not pdf_file:
+        return jsonify({"error": "PDF file not attached"}), 400
+
+    filename = secure_filename(pdf_file.filename)
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    pdf_file.save(file_path)
+
+    result = gpt.process_pdf(file_path)
+
+    return jsonify({"gpt_results": result})
