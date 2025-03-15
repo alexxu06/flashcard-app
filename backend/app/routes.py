@@ -105,32 +105,37 @@ def generate_flashcards_from_pdf():
         if os.path.exists(file_path):
             os.remove(file_path)
 
-    # # Get current user ID from token
-    # current_user_id = get_jwt_identity()
-    # print(f"Current user ID from JWT: {current_user_id}")  # Debugging line
+    # Get current user ID from token
+    current_user_id = get_jwt_identity()
+    print(f"Current user ID from JWT: {current_user_id}")  # Debugging line
 
 
-    # user = User.query.get(current_user_id)
-    # if user is None:
-    #     return jsonify({"error": "User not found"}), 404
+    user = User.query.filter(User.email==current_user_id).one_or_none()
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+    else:
+        print(user)
 
-    # # Clean filename (remove .pdf)
-    # deck_name = filename.rsplit(".", 1)[0]
+    # Clean filename (remove .pdf)
+    deck_name = filename.rsplit(".", 1)[0]
 
-    # # Save deck
-    # new_deck = Deck(name=deck_name, user_id=user.id)
-    # db.session.add(new_deck)
-    # # db.session.flush()  # So new_deck.id is available for FK
+    # Save deck
+    new_deck = Deck(name=deck_name, user_id=user.id)
 
-    # # Save flashcards
-    # for card in result:
-    #     new_card = Flashcard(front=card['question'], back=card['answer'], deck_id=new_deck.id)
-    #     db.session.add(new_card)
+    # Save flashcards to Deck
+    new_flashcards = []
+    for card in result:
+        new_card = Flashcard(front=card['question'], back=card['answer'], deck_id=new_deck.id)
+        db.session.add(new_card)
+        new_flashcards.append(new_card)
+        
+    new_deck.flaskcards.extend(new_flashcards)
+    
+    db.session.add(new_deck)
+    db.session.commit()
 
-    # db.session.commit()
-
-    # print(f"Deck created: {new_deck}")
-    # for card in new_flashcards:
-    #     print(f"Flashcard: Q='{card.front}', A='{card.back}'")
+    print(f"Deck created: {new_deck}")
+    for card in new_flashcards:
+        print(f"Flashcard: Q='{card.front}', A='{card.back}'")
 
     return jsonify({"gpt_results": result, "deck_name": filename})
