@@ -5,20 +5,23 @@ import { useNavigate } from 'react-router'
 
 function NavigationBar() {
     let navigate = useNavigate();
-    // const [isAuthorized, setIsAuthorized] = useState(null);
+    const [isAuthorized, setIsAuthorized] = useState(null);
     const [btnLabel, setBtnLabel] = useState("");
 
     const checkIfAuthenticated = () => {
+        console.log("bad")
         axios.get("api/authentication")
         .then(function (response) {
             console.log(response)
             // setIsAuthorized(true)
             setBtnLabel("Logout")
+            setIsAuthorized(true)
         })
         .catch(function (error) {
             console.log(error)
             // setIsAuthorized(false)
             setBtnLabel("Sign Up / Login")
+            setIsAuthorized(false)
         })
     }
 
@@ -30,11 +33,25 @@ function NavigationBar() {
         navigate("/login")
     }
 
+    const logout = () => {
+        console.log("good")
+        axios.post("/api/logout", {
+            withCredentials: true
+        })
+        .then(function (response) {
+            // navigate("/login");
+            console.log(response)
+        })
+        .catch(function (error) {
+            alert(error.response.data);
+        });
+    }
+
     return (
         <div className='navigation-bar'>
             <div className='title'>SmartCard</div>
             <div className='padding'></div>
-            <button className='signup-login-button' onClick={loginNav}>{btnLabel}</button>
+            <button className='signup-login-button' onClick={isAuthorized? logout : loginNav}>{btnLabel}</button>
         </div>
     )
 }
