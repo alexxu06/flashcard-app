@@ -1,14 +1,59 @@
+import { useEffect, useState } from 'react'
 import './NavigationBar.css/'
+import axios from "axios";
+import { useNavigate } from 'react-router'
 
 function NavigationBar() {
+    let navigate = useNavigate();
+    const [isAuthorized, setIsAuthorized] = useState(null);
+    const [btnLabel, setBtnLabel] = useState("");
 
-  return (
-    <div className='navigation-bar'>
-        <div className='title'>SmartCard</div>
-        <div className='padding'></div>
-        <button className='signup-login-button'>Sign Up / Login</button>
-    </div>
-  )
+    const checkIfAuthenticated = () => {
+        console.log("bad")
+        axios.get("api/authentication")
+        .then(function (response) {
+            console.log(response)
+            // setIsAuthorized(true)
+            setBtnLabel("Logout")
+            setIsAuthorized(true)
+        })
+        .catch(function (error) {
+            console.log(error)
+            // setIsAuthorized(false)
+            setBtnLabel("Sign Up / Login")
+            setIsAuthorized(false)
+        })
+    }
+
+    useEffect(() => {
+        checkIfAuthenticated()
+    }, [])
+
+    const loginNav = () => {
+        navigate("/login")
+    }
+
+    const logout = () => {
+        console.log("good")
+        axios.post("/api/logout", {
+            withCredentials: true
+        })
+        .then(function (response) {
+            // navigate("/login");
+            console.log(response)
+        })
+        .catch(function (error) {
+            alert(error.response.data);
+        });
+    }
+
+    return (
+        <div className='navigation-bar'>
+            <div className='title'>SmartCard</div>
+            <div className='padding'></div>
+            <button className='signup-login-button' onClick={isAuthorized? logout : loginNav}>{btnLabel}</button>
+        </div>
+    )
 }
 
 export default NavigationBar
