@@ -1,17 +1,15 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 import './ViewDeck.css';
 
 function ViewDeck(props) {
-    let pdfName;
+    const location = useLocation();
+    let pdfName = location.state.pdfName;
+    console.log(pdfName);
     let cards;
     const [index, setIndex] = useState(0);
     const [showAnswer, setShowAnswer] = useState(false); // Tracks if answer is shown
 
-    if (props?.pdfName == undefined) {
-        pdfName = 'Unnamed Pdf';
-    } else {
-        pdfName = props.pdfName;
-    }
     if (props?.cards == undefined) {
         cards = [
             {question: "Yo im a question", answer: "Yo im an answer"},

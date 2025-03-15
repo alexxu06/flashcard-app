@@ -1,5 +1,8 @@
+import { useNavigate } from 'react-router'
 
-function DeckBtn({ pdfName }) {
+function DeckBtn({ pdfName, id }) {
+    let navigate = useNavigate();
+
     // const clicked = (e, key) => {
     //     if (clicked_target != null) {
     //         const previous_target = clicked_target
@@ -13,10 +16,14 @@ function DeckBtn({ pdfName }) {
     //     clicked_target = e.target
     // }
 
-    
+    const flashDeckNav = () => {
+        navigate(`/home/${id}`, {
+            state: {pdfName}
+        })
+    }
 
     return (
-        <button className="pdf-sidebar">
+        <button onClick={flashDeckNav} className="pdf-sidebar">
             {pdfName}
         </button>
     )
