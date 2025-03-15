@@ -9,12 +9,19 @@ import Account from "./svg/account.svg";
 
 
 function LandingPage() {
+    const [file, setFile] = useState(null)
     const [testThing, setTestThing] = useState([]);
     const [deckName, setDeckName] = useState("Your Deck");
-    const [file, setFile] = useState(null)
+    
 
     const handleFile = (e) => {
         setFile(e.target.files[0])
+    }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
     const uploadFile = () => {
@@ -22,17 +29,20 @@ function LandingPage() {
         console.log(file);
         formData.append('file', file);
         console.log(formData);
-
-        axios.post("api/pdf-to-flashcard", formData)
+        
+        axios.post("api/pdf-to-flashcard", formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'X-XSRF-TOKEN': getCookie('csrf_access_token')
+            },
+            withCredentials: true  // Make sure credentials (cookies) are sent
+          })
             .then(function (response) {
                 console.log("API Response:", response);
 
                 const flashcards = response.data.gpt_results;
                 const deck_name = response.data.deck_name;
-
-                // Remove file extension '.pdf' from deck name
-                const cleanDeckName = deck_name.replace(/\.[^/.]+$/, "");
-                setDeckName(cleanDeckName || "Your Deck");
+                setDeckName(deck_name || "Your Deck")
 
                 if (Array.isArray(flashcards)) {
                     setTestThing(flashcards);  
@@ -74,7 +84,7 @@ function LandingPage() {
 
         <button className="signup-button">Sign Up</button>
 
-        {/* <input type="file" onChange={handleFile} />
+        <input type="file" onChange={handleFile} />
         <button type="submit" onClick={uploadFile}>Upload</button>
 
         <h2>Generated Flashcards for {deckName}</h2>
@@ -87,7 +97,8 @@ function LandingPage() {
             ))
         ) : (
             <p>No flashcards generated yet.</p>
-        )} */}
+        )}
+
     </div>
   )
 }
