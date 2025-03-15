@@ -5,6 +5,7 @@ from typing import Optional, List
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
+    __tablename__ = "user_table"
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String, index=True, unique=True)
     email: Mapped[str] = mapped_column(String, index=True, unique=True)
@@ -22,8 +23,10 @@ class User(db.Model):
         return f"<User {self.username}>"
 
 class Deck(db.Model):
+    __tablename__ = "deck_table"
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[int] = mapped_column(String, index=True, unique=False)
+    name: Mapped[str] = mapped_column(String, index=True, unique=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"), index=True)
 
     flaskcards: Mapped[List["Flashcard"]] = relationship("Flashcard", backref="deck")
 
@@ -31,9 +34,11 @@ class Deck(db.Model):
         return f"<User {self.name}>"
 
 class Flashcard(db.Model):
+    __tablename__ = "flashcard_table"
     id: Mapped[int] = mapped_column(primary_key=True)
     front: Mapped[str] = mapped_column(String, index=True, unique=False)
     back: Mapped[str] = mapped_column(String, index=True, unique=False)
+    deck_id: Mapped[int] = mapped_column(ForeignKey("deck_table.id"), index=True)
 
     def __repr__(self):
-        return f"<User {self.name}>"
+        return f"<User {self.front}>"

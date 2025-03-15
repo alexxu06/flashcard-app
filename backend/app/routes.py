@@ -43,7 +43,7 @@ def signup():
     if User.query.filter(User.email==email).first():
         return "Email already in use", 401
     
-    user = User(email=email, username=username, admin=admin)
+    user = User(email=email, username=username)
     user.set_password(password)
     db.session.add(user)
     db.session.commit()
@@ -57,7 +57,7 @@ def signup():
 # Login route
 @app.route("/api/login", methods=["POST"])
 def login():
-    email = request.json.get("username", None)
+    email = request.json.get("email", None)
     password = request.json.get("password", None)
 
     user = User.query.filter(User.email==email).one_or_none()
