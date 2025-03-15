@@ -17,14 +17,25 @@ function LandingPage() {
         setFile(e.target.files[0])
     }
 
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
     const uploadFile = () => {
         const formData = new FormData();
         console.log(file);
         formData.append('file', file);
         console.log(formData);
 
-        axios.post("api/pdf-to-flashcard", formData)
-            .then(function (response) {
+        axios.post("/api/pdf-to-flashcard", formData, {
+            withCredentials: true,
+            headers: {
+                'X-CSRF-TOKEN': getCookie('csrf_access_token'),
+            }
+        })
+        .then(function (response) {
                 console.log("API Response:", response);
 
                 const flashcards = response.data.gpt_results;
@@ -74,7 +85,7 @@ function LandingPage() {
 
         <button className="signup-button">Sign Up</button>
 
-        {/* <input type="file" onChange={handleFile} />
+        <input type="file" onChange={handleFile} />
         <button type="submit" onClick={uploadFile}>Upload</button>
 
         <h2>Generated Flashcards for {deckName}</h2>
@@ -87,7 +98,7 @@ function LandingPage() {
             ))
         ) : (
             <p>No flashcards generated yet.</p>
-        )} */}
+        )}
     </div>
   )
 }
