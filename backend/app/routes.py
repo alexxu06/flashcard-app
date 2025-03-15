@@ -100,4 +100,4 @@ def generate_flashcards_from_pdf():
 
     result = gpt.process_pdf(file_path)
 
-    return jsonify({"gpt_results": result})
+    return jsonify({"gpt_results": result, "deck_name": filename})
