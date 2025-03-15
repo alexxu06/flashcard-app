@@ -1,19 +1,18 @@
-import './LoginPage.css'
+import "../login/LoginPage.css"
 import { useNavigate } from 'react-router'
 
-function LoginPage() {
-
+function SignupPage() {
     let navigate = useNavigate(); 
 
-    const SignupNav = () => {
-        navigate("/signup")
+    const LoginNav = () => {
+        navigate("/login")
     }
 
     return(
         <div className="login-container">
             <div className="login-box">
                 <h1>SmartCard</h1>
-                <p>Login to access your flashcards!</p>
+                <p>Sign up to start creating flashcards!</p>
                 
                 <div className="input-box">
 
@@ -24,21 +23,27 @@ function LoginPage() {
                     </div>
 
                     <div class="input-container">
+                        <input placeholder="Username" class="input-field" type="text"/>
+                        <label for="input-field" class="input-label">Enter Username</label>
+                        <span class="input-highlight"></span>
+                    </div>
+
+                    <div class="input-container">
                         <input placeholder="Password" class="input-field" type="password"/>
                         <label for="input-field" class="input-label">Enter Password</label>
                         <span class="input-highlight"></span>
                     </div>
 
                     <p className="signup-text">
-                        Don’t have an account? <span style={{ textDecoration: "underline", cursor: "pointer" }} onClick={SignupNav}>Sign up</span>
+                        Already have an account? <span style={{ textDecoration: "underline", cursor: "pointer" }} onClick={LoginNav}>Login</span>
                     </p>
                 </div>
 
-                <button className="login-button">Login</button>
+                <button className="login-button">Sign up</button>
             </div>
 
         </div>
     )
 }
 
-export default LoginPage
+export default SignupPage
