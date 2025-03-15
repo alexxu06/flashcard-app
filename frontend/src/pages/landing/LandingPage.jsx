@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './LandingPage.css'
 import NavigationBar from '../../components/navigation-bar/NavigationBar'
+import LandingCard from '../../components/landing-cards/LandingCard';
 import axios from "axios";
 
 function LandingPage() {
@@ -46,7 +47,28 @@ function LandingPage() {
   return (
     <div className='landing-container'>
         <NavigationBar />
-        <p>Welcome to SmartCard, the new best way to make flashcards!</p>
+        <h2 className="landing-title">Welcome to SmartCard, the new best way to make flashcards!</h2>
+        
+        <div className='landing-cards'>
+            <LandingCard
+                imgLink="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Eo_circle_red_number-1.svg/800px-Eo_circle_red_number-1.svg.png"
+                header="Sign Up"
+                paragraph="Create your own SmartCard account by clicking the button below"
+            />
+            <LandingCard
+                imgLink="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Eo_circle_yellow_number-2.svg/768px-Eo_circle_yellow_number-2.svg.png?20200417183535" 
+                header="Upload"
+                paragraph="Submit your notes, textbooks, or other schoolwork to SmartCard in PDF format"
+            />
+            <LandingCard
+                imgLink="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Eo_circle_green_number-3.svg/768px-Eo_circle_green_number-3.svg.png?20200417133104"
+                header="Voila!"
+                paragraph="We'll automatically create flashcards from the PDFs you upload that will help you study for the exams you dread!"
+            />
+        </div>
+
+        <button className="signup-button">Sign Up</button>
+
         <input type="file" onChange={handleFile} />
         <button type="submit" onClick={uploadFile}>Upload</button>
 

@@ -1,6 +1,6 @@
 .navigation-bar {
     display: flex;
-    background-color: #acb1d6;
+    background-color: var(--third-darkest);
     justify-content: space-between;
     align-items: center;
     text-align: center;
@@ -12,7 +12,7 @@
     -webkit-user-select: none; /* For Safari */
     -moz-user-select: none; /* For Firefox */
     -ms-user-select: none; /* For older IE/Edge */
-    background-color: #dbdfea;
+    background-color: var(--third-darkest);
     padding-top: 1rem;
     padding-bottom: 1rem;
     width: 25%;
@@ -22,9 +22,8 @@
     flex-grow: 1;
 }
 
-.signup-login-button {
-    background-color: #ffead2;
-    border-width: 0;
+.landing-page-login-button {
+    background-color: var(--third-darkest);
     padding-top: 1rem;
     padding-bottom: 1rem;
     width: 25%;
@@ -32,6 +31,7 @@
     font-size: 2rem;
 }
 
-.signup-login-button:hover {
+.landing-page-login-button:hover {
     cursor: pointer;
+    background-color: var(--darkestdarkest);
 }

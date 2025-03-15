@@ -1,3 +1,29 @@
 .landing-container {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--darkest);
+}
+
+.landing-cards {
+    padding: 5rem 10rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.signup-button {
+        background-color: #ffead2;
+        align-self: center;
+        border-width: 0;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        width: 25%;
+        border-radius: 5px;
+        font-size: 2rem;
+        box-shadow: 5px 5px hwb(0 0% 100% / 0.5);
+}
+    
+.signup-button:hover {
+        cursor: pointer;
 }
