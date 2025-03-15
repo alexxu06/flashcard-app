@@ -1,8 +1,22 @@
 import { useState } from "react";
 
 function SideBar(props) {
-    const currentPdfList = props.pdfList.map((pdf, index) => (
-        <button key={index} className="pdf-sidebar">{pdf}</button>
+    let clicked_target = null;
+    const clicked = (e, pdfName) => {
+        if (clicked_target != null) {
+            const previous_target = clicked_target
+            previous_target.style.backgroundColor = "#ACB1D6";
+            previous_target.onmouseout = () => previous_target.style.backgroundColor = "#ACB1D6";
+            previous_target.onmouseover = () => previous_target.style.backgroundColor = "#8294C4";
+        }
+        e.target.style.backgroundColor = "#8294C4";
+        e.target.onmouseover = () => e.target.style.backgroundColor = "#8294C4";
+        e.target.onmouseout = null;
+        clicked_target = e.target
+    }
+
+    const currentPdfList = props.pdfList.map((pdfName, index) => (
+        <button onClick={(e, pdfName) => clicked(e, pdfName)} key={index} className="pdf-sidebar">{pdfName}</button>
     ));
 
     return (
