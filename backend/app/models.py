@@ -5,14 +5,12 @@ from typing import Optional, List
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
-    __tablename__ = "users"
-
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String, index=True, unique=True)
     email: Mapped[str] = mapped_column(String, index=True, unique=True)
     password: Mapped[Optional[str]] = mapped_column(String)
 
-    flaskcard_decks = Mapped[list["Decks"]] = relationship("Decks", backref="user")
+    flaskcard_decks: Mapped[List["Deck"]] = relationship("Deck", backref="user")
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -23,23 +21,19 @@ class User(db.Model):
     def __repr__(self):
         return f"<User {self.username}>"
 
-class Decks(db.Model):
-    __tablename__ = "flaskcard_decks"
-
+class Deck(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: mapped_column(String, index=True, unique=False)
+    name: Mapped[int] = mapped_column(String, index=True, unique=False)
 
-    flaskcards = Mapped[list["Flaskcard"]] = relationship("Flaskcard", backref="deck")
+    flaskcards: Mapped[List["Flashcard"]] = relationship("Flashcard", backref="deck")
 
     def __repr__(self):
         return f"<User {self.name}>"
 
-class Flaskcard(db.Model):
-    __tablename__ = "flaskcard"
-
+class Flashcard(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    front: mapped_column(String, index=True, unique=False)
-    back: mapped_column(String, index=True, unique=False)
+    front: Mapped[str] = mapped_column(String, index=True, unique=False)
+    back: Mapped[str] = mapped_column(String, index=True, unique=False)
 
     def __repr__(self):
         return f"<User {self.name}>"
