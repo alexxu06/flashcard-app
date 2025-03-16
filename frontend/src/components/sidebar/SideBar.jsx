@@ -40,7 +40,7 @@ function SideBar() {
         const listOfLoadedDecks = []
 
         userFlashCards.forEach(deck => {
-            listOfLoadedDecks.push(deck.name)
+            listOfLoadedDecks.push(deck)
         })
 
         setdeckList(listOfLoadedDecks)
@@ -53,7 +53,7 @@ function SideBar() {
                 <hr />
                 <div className="scrollable-section">
                     {deckList.map((deck, index) => (
-                        <DeckBtn key={index} deckName={deck} id={index} onClick={clicked} />
+                        <DeckBtn key={index} deck={deck} id={index} onClick={clicked} />
                     ))}
                 </div>
                 <button onClick={addHomeNav} className="add-new-decks">
