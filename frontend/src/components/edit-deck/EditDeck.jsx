@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router';
 import './EditDeck.css';
+import axios from "axios";
 
 function EditDeck(props) {
     const location = useLocation();
@@ -53,12 +54,34 @@ function EditDeck(props) {
         </div>
     ));
 
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
     const handleConfirm = () => {
         const userFlashCards = JSON.parse(localStorage.getItem("flashcards"))   
-        userFlashCards[location.state.id] = {"cards": cardList, "name": deck.name}
+        userFlashCards[location.state.id] = {"cards": cardList, "id": deck.id,"name": deck.name}
         console.log(userFlashCards[location.state.id])
         localStorage.setItem("flashcards", JSON.stringify(userFlashCards));
         window.dispatchEvent(new Event("edit-flashcard"));
+
+        axios.post("/api/edit", {
+            id: deck.id
+        }, {
+            withCredentials: true,
+            headers: {
+                "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+            },
+        })
+        .then(async function (response) {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error)
+            alert(error.response.data)
+        })
     }
 
     return (

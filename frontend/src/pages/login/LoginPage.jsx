@@ -53,9 +53,9 @@ function LoginPage() {
             }, {
                 withCredentials: true
             })
-            .then(function (response) {
+            .then(async function (response) {
                 console.log(response)
-                loadFlashCards()
+                await loadFlashCards()
                 navigate("/home")
             })
             .catch(function (error) {
