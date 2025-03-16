@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SideBar.css/";
 import DeckBtn from "../deck-btn/DeckBtn";
 import axios from "axios";
@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router'
 
 function SideBar() {
     let navigate = useNavigate();
-    const [pdfNameList, setpdfNameList] = useState([]);
-    const [a, setA] = useState(0);
+    const [deckList, setdeckList] = useState([]);
     const [clickedTarget, setClickedTarget] = useState(null); // Store clicked button reference
 
     const clicked = (e) => {
@@ -25,7 +24,7 @@ function SideBar() {
         setClickedTarget(newTarget); // Store new clicked button
     };
 
-    const addDeckNav = () => {
+    const addHomeNav = () => {
         if (clickedTarget) {
             const clicked_target =  clickedTarget
             clicked_target.style.backgroundColor = "#ACB1D6";
@@ -36,17 +35,30 @@ function SideBar() {
         navigate("/home")
     };
 
+    useEffect(() => {
+        const userFlashCards = JSON.parse(localStorage.getItem("flashcards"))
+        console.log("asd")
+        console.log(userFlashCards)
+        console.log(userFlashCards[0])
+
+        for (let i = 1; i < userFlashCards.length; i++) {
+            console.log(userFlashCards[i].name)
+            setdeckList(deckList => [...deckList, (userFlashCards[i].name)])
+        }
+
+    }, [])
+
     return (
         <div className="container">
             <div className="side-bar">
                 <p className="decks-space">Decks</p>
                 <hr />
                 <div className="scrollable-section">
-                    {pdfNameList.map((pdfName, index) => (
-                        <DeckBtn key={index} pdfName={pdfName} id={index} onClick={clicked} />
+                    {deckList.map((name, index) => (
+                        <DeckBtn key={index} deckName={name} id={index} onClick={clicked} />
                     ))}
                 </div>
-                <button onClick={addDeckNav} className="add-new-decks">
+                <button onClick={addHomeNav} className="add-new-decks">
                     Add new decks +
                 </button>
             </div>
