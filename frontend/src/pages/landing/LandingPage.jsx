@@ -15,31 +15,36 @@ function LandingPage() {
 }
 
   return (
-        <div className="landing-container">
+        <div>
             <NavigationBar />
 
-            <h2 className="landing-title">SmartCard. The new way to make flashcards.</h2>
+            <div className="landing-container">
 
-            <div className="landing-cards">
-                <LandingCard
-                    imgLink={<img src={Account} alt="Account" />}
-                    header="Create an Account"
-                    paragraph="Sign up to SmartCard by clicking the button below"
-                />
-                <LandingCard
-                    imgLink={<img src={Files} alt="Files" />}
-                    header="Upload your Notes"
-                    paragraph="Submit your notes, textbooks, or other schoolwork to SmartCard in PDF format"
-                />
-                <LandingCard
-                    imgLink={<img src={Voila} alt="Voila" />}
-                    header="Voila!"
-                    paragraph="We automatically create succinct and effective flashcards for you to study"
-                />
+                <h2 className="landing-title">
+                    <span className="bold-title">SmartCard.</span> The new way to make flashcards.
+                </h2>
+                
+                <div className="landing-cards">
+                    <LandingCard
+                        imgLink={<img src={Account} alt="Account" />}
+                        header="Create an Account"
+                        paragraph="Sign up to SmartCard by clicking the button below"
+                    />
+                    <LandingCard
+                        imgLink={<img src={Files} alt="Files" />}
+                        header="Upload your Notes"
+                        paragraph="Submit your notes, textbooks, or other schoolwork to SmartCard in PDF format"
+                    />
+                    <LandingCard
+                        imgLink={<img src={Voila} alt="Voila" />}
+                        header="Voila!"
+                        paragraph="We automatically create succinct and effective flashcards for you to study"
+                    />
+                </div>
+
+                <button onClick={SignupNav} className="signup-button">Sign Up</button>
+
             </div>
-
-            <button onClick={SignupNav} className="signup-button">Sign Up</button>
-
         </div>
     );
 }
