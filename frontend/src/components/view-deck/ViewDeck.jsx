@@ -30,9 +30,10 @@ function ViewDeck() {
     };
 
     const editHandler = () => {
-        navigate(`/home/${flashdeckId}/edit`,
-            {state: deck}
-        );
+        const id = location.state.id
+        navigate(`/home/${flashdeckId}/edit`, {
+            state: {deck, id}
+        });
     }
 
     return (
