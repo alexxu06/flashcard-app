@@ -6,9 +6,14 @@ import axios from "axios";
 import Voila from "./svg/voila.svg";
 import Files from "./svg/files.svg";
 import Account from "./svg/account.svg";
-
+import { useNavigate } from 'react-router'
 
 function LandingPage() {
+  let navigate = useNavigate(); 
+  const SignupNav = () => {
+    navigate("/signup")
+}
+
   return (
         <div className="landing-container">
             <NavigationBar />
@@ -33,7 +38,7 @@ function LandingPage() {
                 />
             </div>
 
-            <button className="signup-button">Sign Up</button>
+            <button onClick={SignupNav} className="signup-button">Sign Up</button>
 
         </div>
     );
