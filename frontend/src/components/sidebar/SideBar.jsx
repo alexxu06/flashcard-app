@@ -26,7 +26,7 @@ function SideBar() {
 
     const addHomeNav = () => {
         if (clickedTarget) {
-            const clicked_target =  clickedTarget
+            const clicked_target =  clickedTarget 
             clicked_target.style.backgroundColor = "#ACB1D6";
             clicked_target.onmouseout = () => (clicked_target.style.backgroundColor = "#ACB1D6");
             clicked_target.onmouseover = () => (clicked_target.style.backgroundColor = "#8294C4");
