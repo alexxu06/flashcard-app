@@ -23,7 +23,14 @@
     margin-bottom: 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease-in-out;
+}
+
+.confirm-button:hover {
+    background-color: var(--darkestdarkest);
+    
+    transform: scale(1.01); /* Slight zoom-in effect */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
 }
 
 .central-container {
