@@ -9,64 +9,7 @@ import Account from "./svg/account.svg";
 
 
 function LandingPage() {
-    const [decks, setDecks] = useState([]);
-    const [file, setFile] = useState(null);
-
-    const handleFile = (e) => {
-        setFile(e.target.files[0])
-    }
-
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    const uploadFile = () => {
-        const formData = new FormData();
-        console.log(file);
-        formData.append("file", file);
-        console.log(formData);
-
-        axios.post("/api/flashcards", formData, {
-            withCredentials: true,
-            headers: {
-                "X-CSRF-TOKEN": getCookie("csrf_access_token"),
-            },
-        })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log("API Error:", error);
-        });
-    };
-
-    const fetchFlashcards = () => {
-        axios.get("/api/flashcards", {
-            withCredentials: true,
-            headers: {
-                "X-CSRF-TOKEN": getCookie("csrf_access_token"),
-            },
-        })
-        .then((response) => {
-            console.log("API Response:", response.data);
-
-            if (Array.isArray(response.data.decks)) {
-                setDecks(response.data.decks);
-            } else {
-                setDecks([]);
-                console.error("Unexpected data format. Expected array of decks.");
-            }
-        })
-        .catch((error) => {
-            console.log("API Error:", error);
-            setDecks([]);
-        });
-    };
-
-
-    return (
+  return (
         <div className="landing-container">
             <NavigationBar />
 
@@ -92,30 +35,6 @@ function LandingPage() {
 
             <button className="signup-button">Sign Up</button>
 
-            <input type="file" onChange={handleFile} />
-            <button type="submit" onClick={uploadFile}>Upload</button>
-            <button type="submit" onClick={fetchFlashcards}>Get Flashcards</button>
-
-            <h2>Generated Flashcards</h2>
-            {decks.length > 0 ? (
-                decks.map((deck, deckIndex) => (
-                    <div key={deckIndex} style={{ border: "2px solid black", padding: "15px", marginBottom: "20px" }}>
-                        <h3>Deck: {deck.name}</h3>
-                        {deck.cards.length > 0 ? (
-                            deck.cards.map((card, cardIndex) => (
-                                <div key={cardIndex} style={{ border: "1px solid gray", padding: "10px", marginBottom: "10px" }}>
-                                    <h4>Q: {card.question}</h4>
-                                    <p>A: {card.answer}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p>No flashcards in this deck.</p>
-                        )}
-                    </div>
-                ))
-            ) : (
-                <p>No decks available yet.</p>
-            )}
         </div>
     );
 }
