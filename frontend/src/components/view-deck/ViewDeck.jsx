@@ -7,6 +7,7 @@ function ViewDeck() {
     const location = useLocation();
     const { flashdeckId } = useParams();
     const deck = location.state?.deck || { name: "Unknown Deck", cards: [] }; 
+    console.log(deck)
 
     const [index, setIndex] = useState(0);
     const [showAnswer, setShowAnswer] = useState(false); // Tracks if answer is shown

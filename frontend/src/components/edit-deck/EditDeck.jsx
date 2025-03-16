@@ -63,6 +63,7 @@ function EditDeck(props) {
         userFlashCards[location.state.id] = {"cards": cardList, "id": deck.id,"name": pdfName}
         console.log(userFlashCards[location.state.id])
         localStorage.setItem("flashcards", JSON.stringify(userFlashCards));
+        deck.name = pdfName;
         window.dispatchEvent(new Event("edit-flashcard"));
 
         axios.post("/api/edit", {
@@ -82,19 +83,15 @@ function EditDeck(props) {
             alert(error.response.data)
         })
         window.dispatchEvent(new Event("edit-flashcard"));
-        navigate(`/home/${flashdeckId}`, {
-            state: {deck, id}
-        });
+
+        navigate(`/home/${flashdeckId}`, { state: { deck, id } });
     }
 
     const handleDelete = () => {
         // Remove the deck from localStorage
         const userFlashCards = JSON.parse(localStorage.getItem("flashcards"));
-        console.log(userFlashCards[location.state.id])
         delete userFlashCards[location.state.id]; // Delete the deck by its ID
-        console.log(userFlashCards)
         localStorage.setItem("flashcards", JSON.stringify(userFlashCards));
-        window.dispatchEvent(new Event("edit-flashcard"));
 
         // Optionally, you could delete it from the server as well
         axios.post("/api/delete", { id: deck.id }, {
