@@ -5,7 +5,7 @@ function DeckBtn({ deck, id, onClick }) {
 
     const flashDeckNav = (e) => {
         onClick(e); // Call the parent's `clicked` function
-        navigate(`/home/${id}`, { state: { deck } });
+        navigate(`/home/${id}`, { state: { deck, id } });
     };
 
     return (

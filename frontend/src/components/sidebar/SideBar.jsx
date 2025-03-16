@@ -46,9 +46,11 @@ function SideBar() {
     
         // Listen for storage changes
         window.addEventListener("storage", updateDecks);
+        window.addEventListener("edit-flashcard", updateDecks);
     
         return () => {
             window.removeEventListener("storage", updateDecks);
+            window.removeEventListener("edit-flashcard", updateDecks);
         };
     }, []);
 

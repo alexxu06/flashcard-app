@@ -4,7 +4,7 @@ import './EditDeck.css';
 
 function EditDeck(props) {
     const location = useLocation();
-    const deck = location.state
+    const deck = location.state.deck
     let pdfName
     let cards
 
@@ -53,9 +53,17 @@ function EditDeck(props) {
         </div>
     ));
 
+    const handleConfirm = () => {
+        const userFlashCards = JSON.parse(localStorage.getItem("flashcards"))   
+        userFlashCards[location.state.id] = {"cards": cardList, "name": deck.name}
+        console.log(userFlashCards[location.state.id])
+        localStorage.setItem("flashcards", JSON.stringify(userFlashCards));
+        window.dispatchEvent(new Event("edit-flashcard"));
+    }
+
     return (
         <div className="deck-container">
-            <button className="confirm-button">Confirm</button>
+            <button onClick={handleConfirm} className="confirm-button">Confirm</button>
             <div className="central-container">
                 <h2 className="pdfTitle">{pdfName}</h2>
                 {cardElements}
