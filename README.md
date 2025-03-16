@@ -10,8 +10,6 @@ SmartCard is designed to help students save time and boost retention by transfor
 - Local Storage Support – Saves flashcards to local storage for quick access
 - Responsive Design – Works on desktop and mobile
 
-<br><br>
-
 # 📦 Installation   
 
 ### 1. Clone the Repository
