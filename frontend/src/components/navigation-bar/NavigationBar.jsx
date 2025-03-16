@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './NavigationBar.css/'
 import axios from "axios";
 import { useNavigate } from 'react-router'
+import User from './svg/user.svg'
 
 function NavigationBar(props) {
     let navigate = useNavigate();
@@ -49,7 +50,7 @@ function NavigationBar(props) {
         <div className='navigation-bar'>
             <div className='title'>SmartCard</div>
             <div className='padding'></div>
-            <button className='landing-page-login-button' onClick={isAuthorized? logout : loginNav}>{btnLabel}</button>
+            <button className='landing-page-login-button' onClick={isAuthorized? logout : loginNav}><img src={User} width={25}/> {btnLabel}</button>
         </div>
     )
 }
