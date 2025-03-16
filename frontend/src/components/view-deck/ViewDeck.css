@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     width: 60%;
-    height: 80%;
+    height: 60%;
     position: absolute;
     top: max(200px, 50%); /* Ensures it never goes above 30px */
     left: max(550px, calc(50% + 150px));
