@@ -32,8 +32,14 @@
     width: 48%; /* Make sure buttons are evenly spaced */
 }
 
-.confirm-button:hover, .delete-button:hover {
+.confirm-button:hover {
     background-color: var(--darkestdarkest);
+    transform: scale(1.01); /* Slight zoom-in effect */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+.delete-button:hover {
+    background-color: #b52e26;
     transform: scale(1.01); /* Slight zoom-in effect */
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
 }
