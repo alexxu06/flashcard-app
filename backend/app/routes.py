@@ -21,9 +21,6 @@ def refresh_expiring_tokens(response):
     except (RuntimeError, KeyError):
         return response
 
-@app.route("/api/test")
-def test():
-    return jsonify({"test": "something"})
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
@@ -86,23 +83,81 @@ def check_auth():
     return jsonify({"msg": "success"})
 
 # Get pdf 
-@app.route("/api/pdf-to-flashcard", methods=["POST"])
+@app.route("/api/flashcards", methods=["GET", "POST"])
 @jwt_required()  # Ensure the user is authenticated before uploading a PDF
-def generate_flashcards_from_pdf():
-    pdf_file = request.files['file']
+def flashcards():
+    # Get current user ID from token
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).one_or_none()
 
-    if not pdf_file:
-        return jsonify({"error": "PDF file not attached"}), 400
+    if not user:
+        return jsonify({"error": "User not found"}), 404
 
-    filename = secure_filename(pdf_file.filename)
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    pdf_file.save(file_path)
+    if request.method == "GET":
+        # Fetch user's decks
+        user_decks = user.flashcard_decks
 
-    try:
-        result = gpt.process_pdf(file_path)
-    finally:
-        # Ensures the pdf files gets deleted after processing (even if processing fails)
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        # Convert decks and their flashcards into a structured JSON format
+        flashcards_dict = {
+            "decks": [
+                {
+                    "name": deck.name,
+                    "cards": [
+                        {
+                            "id": card.id,
+                            "question": card.front,
+                            "answer": card.back
+                        } for card in deck.flashcards
+                    ]
+                }
+                for deck in user_decks
+            ]
+        }
 
-    return jsonify({"gpt_results": result, "deck_name": filename})
+        # print(flashcards_dict)
+        
+        return jsonify(flashcards_dict)
+
+    elif request.method == "POST":
+        pdf_file = request.files['file']
+
+        if not pdf_file:
+            return jsonify({"error": "PDF file not attached"}), 400
+
+        filename = secure_filename(pdf_file.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        pdf_file.save(file_path)
+
+        try:
+            result = gpt.process_pdf(file_path)
+        finally:
+            # Ensures the pdf files gets deleted after processing (even if processing fails)
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
+        # Get current user ID from token
+        current_user_id = get_jwt_identity()
+
+        user = User.query.filter(User.email==current_user_id).one_or_none()
+        if user is None:
+            return jsonify({"error": "User not found"}), 404
+
+        # Clean filename (remove .pdf)
+        deck_name = filename.rsplit(".", 1)[0]
+
+        # Save deck
+        new_deck = Deck(name=deck_name, user_id=user.id)
+
+        # Save flashcards to Deck
+        new_flashcards = []
+        for card in result:
+            new_card = Flashcard(front=card['question'], back=card['answer'], deck_id=new_deck.id)
+            db.session.add(new_card)  # is this necessary?
+            new_flashcards.append(new_card)
+            
+        new_deck.flashcards.extend(new_flashcards)
+        
+        db.session.add(new_deck)
+        db.session.commit()
+
+        return jsonify({"gpt_results": result, "deck_name": filename})
