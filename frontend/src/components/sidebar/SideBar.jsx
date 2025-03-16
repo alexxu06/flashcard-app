@@ -36,16 +36,14 @@ function SideBar() {
     };
 
     useEffect(() => {
-        const userFlashCards = JSON.parse(localStorage.getItem("flashcards"))
-        console.log("asd")
-        console.log(userFlashCards)
-        console.log(userFlashCards[0])
+        const userFlashCards = JSON.parse(localStorage.getItem("flashcards"))   
+        const listOfLoadedDecks = []
 
-        for (let i = 1; i < userFlashCards.length; i++) {
-            console.log(userFlashCards[i].name)
-            setdeckList(deckList => [...deckList, (userFlashCards[i].name)])
-        }
+        userFlashCards.forEach(deck => {
+            listOfLoadedDecks.push(deck.name)
+        })
 
+        setdeckList(listOfLoadedDecks)
     }, [])
 
     return (
@@ -54,8 +52,8 @@ function SideBar() {
                 <p className="decks-space">Decks</p>
                 <hr />
                 <div className="scrollable-section">
-                    {deckList.map((name, index) => (
-                        <DeckBtn key={index} deckName={name} id={index} onClick={clicked} />
+                    {deckList.map((deck, index) => (
+                        <DeckBtn key={index} deckName={deck} id={index} onClick={clicked} />
                     ))}
                 </div>
                 <button onClick={addHomeNav} className="add-new-decks">
