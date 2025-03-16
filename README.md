@@ -1,74 +1,74 @@
-# flashcard-app
-SmartCard
+# SmartCard – The Ultimate Study Companion
 
-This is a flashcard website built using Flask, SQLAlchemy, ReactJS, etc.
+## AI-Powered Flashcards for Smarter Learning.   
 
-🚀 Features
+SmartCard is designed to help students save time and boost retention by transforming study materials into AI-generated flashcards effortlessly. It features:
 
-User authentication (Signup/Login)
+- AI-Generated Flashcards – Converts PDFs into effective Q&A flashcards
+- User Authentication – Secure login/signup system
+- Deck Management – Create, update, and delete flashcards and decks
+- Local Storage Support – Saves flashcards to local storage for quick access
+- Responsive Design – Works on desktop and mobile
 
-Create, update, and delete flashcards
+<br><br>
 
-Categorization and tagging of flashcards
+# 📦 Installation   
 
-RESTful API endpoints with JSON responses
+### 1. Clone the Repository
 
-📦 Installation
-
-1️⃣ Clone the Repository
-
-git clone https://github.com/alexxu06/flashcard-app.git
-cd flashcard-app
-cd backend
-
-2️⃣ Create and Activate a Virtual Environment
+- git clone https://github.com/alexxu06/flashcard-app.git
+- cd flashcard-app
+- cd backend
+---
+### 2. Create and Activate a Virtual Environment
 
 python -m venv venv
-# Activate it:
-# Windows:
-venv\Scripts\activate
-# macOS/Linux:
+#### Windows:
+venv\Scripts\activate 
+#### macOS/Linux:
 source venv/bin/activate
 
-3️⃣ Install Dependencies
+---
+### 3. Install Dependencies
 
 pip install -r requirements.txt
 
-4️⃣ Set Up the Database
+---
+### 4. Set Up the Database
 
-flask db init
-flask db migrate -m "Initial migration"
-flask db upgrade
+- flask db init
+- flask db migrate -m "Initial migration"
+- flask db upgrade
 
-5️⃣ Run the Backend Server using run.py
+---
+### 5. Run the Backend Server using run.py
 
 python run.py
 
 By default, the server runs on http://127.0.0.1:5000.
 
-6️⃣ Initialize the Frontend Server (Node.js required)
+---
+### 6. Initialize the Frontend Server (Node.js required)
 
-cd ..
-cd frontend
-npm install
-npm run dev
+- cd ..
+- cd frontend
+- npm install
+- npm run dev
 
-🛠 Technologies Used
+---
+### 🛠 Technologies Used
 
-Python
+- Python
+- Flask
+- Flask-SQLAlchemy (Flask's local database)
+- OpenAI API
+- CSS
+- React
+- Javascript
 
-Flask
+---
+###  💡 Common Issues & Fixes 
+- If you get "no such table" errors, ensure you run flask db upgrade.
+- If Flask isn't recognized in your terminal, try python -m flask run.
 
-Flask-SQLAlchemy
 
-SQLite
-
-Flask-Migrate
-
-Flask-CORS
-
-📌 Notes
-
-If you get "no such table" errors, ensure you run flask db upgrade.
-
-If Flask isn't recognized in your terminal, try python -m flask run.
