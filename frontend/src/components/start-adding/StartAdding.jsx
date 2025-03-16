@@ -30,6 +30,10 @@ function StartAdding() {
     })
     .then((response) => {
       console.log(response);
+      let userFlashCards = JSON.parse(localStorage.getItem("flashcards"));
+      userFlashCards.push(response.data);
+      console.log(userFlashCards)
+      localStorage.setItem("flashcards", JSON.stringify(userFlashCards));
     })
     .catch((error) => {
       console.log("API Error:", error);
