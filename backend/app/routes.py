@@ -160,4 +160,15 @@ def flashcards():
         db.session.add(new_deck)
         db.session.commit()
 
-        return jsonify({"gpt_results": result, "deck_name": filename})
+        result = [{
+                    "name": filename,
+                    "cards": [
+                        {
+                            "id": card.id,
+                            "question": card.front,
+                            "answer": card.back
+                        } for card in new_deck.flashcards
+                    ]
+                }]
+
+        return jsonify(result)

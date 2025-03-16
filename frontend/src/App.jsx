@@ -11,17 +11,17 @@
 
     function App() {
 
-    return (
-        <div>
-            <Routes>
-                <Route index element={<LandingPage />}/>
-                <Route path="home" element={<ProtectedRoute><HomePage /><StartAdding /></ProtectedRoute>}/>
-                <Route path="home/:flashdeckId" element={<ProtectedRoute><HomePage /><ViewDeck /> </ProtectedRoute>}/>
-                <Route path="login" element={<LoginPage />}/>
-                <Route path="signup" element={<SignupPage />}/>
-            </Routes>
-        </div>
-    )
+        return (
+            <div>
+                <Routes>
+                    <Route index element={<LandingPage />}/>
+                    <Route path="home" element={<ProtectedRoute><HomePage /><StartAdding /></ProtectedRoute>}/>
+                    <Route path="home/:flashdeckId" element={<ProtectedRoute><HomePage /><ViewDeck /> </ProtectedRoute>}/>
+                    <Route path="login" element={<LoginPage />}/>
+                    <Route path="signup" element={<SignupPage />}/>
+                </Routes>
+            </div>
+        )
     }
 
     export default App
