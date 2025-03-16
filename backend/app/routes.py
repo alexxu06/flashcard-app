@@ -194,11 +194,16 @@ def edit():
     if not current_deck:
         return jsonify({"error": "Deck not found or does not belong to the user"}), 404
 
-    current_deck.name = new_deck
+    current_deck.name = new_name
 
-    print(deck)
-
-    for card in current_deck.flashcards:
-        print(card)
+    for card in new_flashcards:
+        flashcard_id = card.get("id")
+        question = card.get("question")
+        answer = card.get("answer")
+        current_flashcard = Flashcard.query.filter_by(id=flashcard_id, deck_id=current_deck.id).one_or_none()
+        
+        current_flashcard.front = question
+        current_flashcard.back = answer
+    db.session.commit()
 
     return jsonify({"msg": "success"})
