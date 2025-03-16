@@ -30,9 +30,12 @@
     border: 0px;
     border-radius: 0;
     font-size: 2rem;
+    transition: all 0.3s ease-in-out;
 }
 
 .landing-page-login-button:hover {
     cursor: pointer;
+    transform: scale(1.01); /* Slight zoom-in effect */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2);
     background-color: var(--darkestdarkest);
 }
