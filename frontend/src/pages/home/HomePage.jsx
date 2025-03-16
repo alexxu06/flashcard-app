@@ -7,7 +7,6 @@ import StartAdding from '../../components/start-adding/StartAdding'
 
 
 function HomePage() {
-
   return (
     <>
         <NavigationBar/>

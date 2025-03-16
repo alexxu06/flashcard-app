@@ -31,6 +31,7 @@ function SignupPage() {
             })
             .then(function (response) {
                 console.log(response)
+                localStorage.setItem("flashcards", JSON.stringify([]))
                 navigate("/home")
             })
             .catch(function (error) {
