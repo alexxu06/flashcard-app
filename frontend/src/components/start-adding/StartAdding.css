@@ -14,7 +14,12 @@
     justify-content: space-between;
     padding: 10px;
     gap: 5px;
+    transition: all 0.3s ease-in-out;
     background-color: rgba(0, 110, 255, 0.041);
+}
+
+.start-adding-container:hover {
+    background-color: rgba(0, 110, 255, 0.088);
 }
 
 .header {
