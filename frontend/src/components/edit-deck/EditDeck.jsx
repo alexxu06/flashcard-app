@@ -107,6 +107,7 @@ function EditDeck(props) {
             console.log(error);
             alert(error.response.data);
         });
+        window.dispatchEvent(new Event("edit-flashcard"));
 
         // Redirect to home or a list of decks
         navigate(`/home`);
