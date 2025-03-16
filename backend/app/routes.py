@@ -177,4 +177,28 @@ def flashcards():
 @app.route("/api/edit", methods=["POST"])
 @jwt_required()  # Ensure the user is authenticated before uploading a PDF
 def edit():
+    deck_id = request.json.get("id", None)
+    deck = request.json.get("deck", None)
+
+    new_name = deck.get("name", None)
+    new_flashcards = deck.get("cards", None)
+
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).one_or_none()
+    user_id = user
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    current_deck = Deck.query.filter_by(id=deck_id, user_id=user.id).one_or_none()
+
+    if not current_deck:
+        return jsonify({"error": "Deck not found or does not belong to the user"}), 404
+
+    current_deck.name = new_deck
+
+    print(deck)
+
+    for card in current_deck.flashcards:
+        print(card)
+
     return jsonify({"msg": "success"})
