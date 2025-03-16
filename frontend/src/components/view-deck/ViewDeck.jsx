@@ -2,23 +2,19 @@ import { useState } from 'react';
 import { useLocation } from 'react-router';
 import './ViewDeck.css';
 
-function ViewDeck(props) {
+function ViewDeck() {
     const location = useLocation();
-    let pdfName = location.state.pdfName;
-    console.log(pdfName);
-    let cards;
+    const deck = location.state?.deck || { name: "Unknown Deck", cards: [] }; 
+
     const [index, setIndex] = useState(0);
     const [showAnswer, setShowAnswer] = useState(false); // Tracks if answer is shown
 
-    if (props?.cards == undefined) {
-        cards = [
-            {question: "Yo im a question", answer: "Yo im an answer"},
-            {question: "Yo im another question", answer: "Yo im another answer"},
-            {question: "wow you got to question three", answer: "impressive you got to answer 3"},
-        ];
-    } else {
-        cards = props.cards;
-    }
+    const cards = Array.isArray(deck.cards) && deck.cards.length > 0 
+        ? deck.cards 
+        : [
+            { id: 1, question: "Sample Question 1", answer: "Sample Answer 1" },
+            { id: 2, question: "Sample Question 2", answer: "Sample Answer 2" }
+        ]; 
 
     // Function to switch cards while resetting answer view
     const handleNext = () => {
@@ -34,19 +30,25 @@ function ViewDeck(props) {
     return (
         <div className="card-container">
             <div className="upper-box">
-                <h1>{pdfName}</h1>
+                <h1>{deck.name}</h1>
                 <button>Edit</button>
             </div>
-            <div className="card" onClick={() => setShowAnswer(!showAnswer)}>
-                <h2>Card {index + 1}:</h2>
-                <p className="cardText">
-                    {showAnswer ? cards[index].answer : cards[index].question}
-                </p>
-            </div>
-            <div className="card-navigation">
-                <button onClick={handlePrev}>Previous</button>
-                <button onClick={handleNext}>Next</button>
-            </div>
+            {cards.length > 0 ? (
+                <>
+                    <div className="card" onClick={() => setShowAnswer(!showAnswer)}>
+                        <h2>Card {index + 1}:</h2>
+                        <p className="cardText">
+                            {showAnswer ? cards[index].answer : cards[index].question}
+                        </p>
+                    </div>
+                    <div className="card-navigation">
+                        <button onClick={handlePrev}>Previous</button>
+                        <button onClick={handleNext}>Next</button>
+                    </div>
+                </>
+            ) : (
+                <p>No flashcards in this deck.</p>
+            )}
         </div>
     );
 }

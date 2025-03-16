@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router";
 
-function DeckBtn({ deckName, id, onClick }) {
+function DeckBtn({ deck, id, onClick }) {
     let navigate = useNavigate();
 
     const flashDeckNav = (e) => {
         onClick(e); // Call the parent's `clicked` function
-        navigate(`/home/${id}`, { state: { deckName } });
+        navigate(`/home/${id}`, { state: { deck } });
     };
 
     return (
         <button onClick={flashDeckNav} className="pdf-sidebar">
-            {deckName}
+            {deck.name}
         </button>
     );
 }
