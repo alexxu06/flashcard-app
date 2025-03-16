@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import './EditDeck.css';
 import axios from "axios";
 
 function EditDeck(props) {
     const location = useLocation();
+    const { flashdeckId, id } = useParams();
+    let navigate = useNavigate();
     const deck = location.state.deck
     let pdfName
     let cards
@@ -68,7 +70,8 @@ function EditDeck(props) {
         window.dispatchEvent(new Event("edit-flashcard"));
 
         axios.post("/api/edit", {
-            id: deck.id
+            id: deck.id,
+            deck: {"cards": cardList, "id": deck.id,"name": deck.name}
         }, {
             withCredentials: true,
             headers: {
@@ -82,6 +85,9 @@ function EditDeck(props) {
             console.log(error)
             alert(error.response.data)
         })
+        navigate(`/home/${flashdeckId}`, {
+            state: {deck, id}
+        });
     }
 
     return (
