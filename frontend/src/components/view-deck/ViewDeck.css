@@ -43,6 +43,8 @@
 
 .upper-box button:hover {
     background: var(--darkestdarkest);
+    transform: scale(1.01); /* Slight zoom-in effect */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
 }
 
 .card {
@@ -84,12 +86,14 @@
     width: 150px;
     height: 55px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease-in-out;
 }
 
 .card-navigation button:hover {
     background: var(--darkestdarkest);
     color: white;
+    transform: scale(1.01); /* Slight zoom-in effect */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
 }
 
 .card::selection, 
