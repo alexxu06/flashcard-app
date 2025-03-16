@@ -38,7 +38,9 @@ function SideBar() {
     useEffect(() => {
         const updateDecks = () => {
             const userFlashCards = JSON.parse(localStorage.getItem("flashcards")) || [];
-            setdeckList(userFlashCards);
+            const filteredDecks = userFlashCards.filter(deck => deck !== null);
+            console.log(filteredDecks)
+            setdeckList(filteredDecks);
         };
     
         // Run initially

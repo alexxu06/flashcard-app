@@ -49,7 +49,7 @@ class Deck(db.Model):
     user_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"), index=True)
 
 
-    flashcards: Mapped[List["Flashcard"]] = relationship("Flashcard", backref="deck")
+    flashcards: Mapped[List["Flashcard"]] = relationship("Flashcard", backref="deck", cascade="all, delete-orphan")
 
     def __repr__(self):
 

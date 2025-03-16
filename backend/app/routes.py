@@ -175,7 +175,7 @@ def flashcards():
         return jsonify(result)
 
 @app.route("/api/edit", methods=["POST"])
-@jwt_required()  # Ensure the user is authenticated before uploading a PDF
+@jwt_required()  
 def edit():
     deck_id = request.json.get("id", None)
     deck = request.json.get("deck", None)
@@ -185,7 +185,7 @@ def edit():
 
     current_user_email = get_jwt_identity()
     user = User.query.filter_by(email=current_user_email).one_or_none()
-    user_id = user
+    
     if not user:
         return jsonify({"error": "User not found"}), 404
 
@@ -204,6 +204,23 @@ def edit():
         
         current_flashcard.front = question
         current_flashcard.back = answer
+    db.session.commit()
+
+    return jsonify({"msg": "success"})
+
+@app.route("/api/delete", methods=["POST"])
+@jwt_required()  
+def delete():
+    deck_id = request.json.get("id", None)
+
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).one_or_none()
+
+    current_deck = Deck.query.filter_by(id=deck_id, user_id=user.id).one_or_none()
+    if not current_deck:
+        return jsonify({"error": "Deck not found or does not belong to the user"}), 404
+
+    db.session.delete(current_deck)
     db.session.commit()
 
     return jsonify({"msg": "success"})
