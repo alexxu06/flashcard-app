@@ -9,9 +9,8 @@ import Account from "./svg/account.svg";
 
 
 function LandingPage() {
-    const [testThing, setTestThing] = useState([]);
-    const [deckName, setDeckName] = useState("Your Deck");
-    const [file, setFile] = useState(null)
+    const [decks, setDecks] = useState([]);
+    const [file, setFile] = useState(null);
 
     const handleFile = (e) => {
         setFile(e.target.files[0])
@@ -26,97 +25,99 @@ function LandingPage() {
     const uploadFile = () => {
         const formData = new FormData();
         console.log(file);
-        formData.append('file', file);
+        formData.append("file", file);
         console.log(formData);
 
         axios.post("/api/flashcards", formData, {
             withCredentials: true,
             headers: {
-                'X-CSRF-TOKEN': getCookie('csrf_access_token'),
-            }
+                "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+            },
         })
-        .then(function (response) {
-            console.log(response)
+        .then((response) => {
+            console.log(response);
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log("API Error:", error);
         });
     };
 
-    const testUploadDataGet = () => {
+    const fetchFlashcards = () => {
         axios.get("/api/flashcards", {
             withCredentials: true,
             headers: {
-                'X-CSRF-TOKEN': getCookie('csrf_access_token'),
-            }
+                "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+            },
         })
-        .then(function (response) {
-            console.log("API Response:", response);
+        .then((response) => {
+            console.log("API Response:", response.data);
 
-            const flashcards = response.data.gpt_results;
-            const deck_name = response.data.deck_name;
-
-            // Remove file extension '.pdf' from deck name
-            const cleanDeckName = deck_name.replace(/\.[^/.]+$/, "");
-            setDeckName(cleanDeckName || "Your Deck");
-
-            if (Array.isArray(flashcards)) {
-                setTestThing(flashcards);  
+            if (Array.isArray(response.data.decks)) {
+                setDecks(response.data.decks);
             } else {
-                setTestThing([]); 
-                console.error("Unexpected data format. Expected array.");
+                setDecks([]);
+                console.error("Unexpected data format. Expected array of decks.");
             }
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log("API Error:", error);
-            setTestThing([]);
-            setDeckName("Your Deck");
+            setDecks([]);
         });
-    }
+    };
 
-  return (
-    <div className='landing-container'>
-        <NavigationBar />
-        
-        <h2 class="landing-title">SmartCard. The new way to make flashcards.</h2>        
 
-        <div className='landing-cards'>
-            <LandingCard
-                imgLink={<img src={Account} alt="Account" />}
-                header="Create an Account"
-                paragraph="Sign up to SmartCard by clicking the button below"
-            />
-            <LandingCard
-                imgLink={<img src={Files} alt="Files" />}
-                header="Upload your Notes"
-                paragraph="Submit your notes, textbooks, or other schoolwork to SmartCard in PDF format"
-            />
-            <LandingCard
-                imgLink={<img src={Voila} alt="Voila" />}
-                header="Voila!"
-                paragraph="We automatically create succinct and effective flashcards for you to study"
-            />
+    return (
+        <div className="landing-container">
+            <NavigationBar />
+
+            <h2 className="landing-title">SmartCard. The new way to make flashcards.</h2>
+
+            <div className="landing-cards">
+                <LandingCard
+                    imgLink={<img src={Account} alt="Account" />}
+                    header="Create an Account"
+                    paragraph="Sign up to SmartCard by clicking the button below"
+                />
+                <LandingCard
+                    imgLink={<img src={Files} alt="Files" />}
+                    header="Upload your Notes"
+                    paragraph="Submit your notes, textbooks, or other schoolwork to SmartCard in PDF format"
+                />
+                <LandingCard
+                    imgLink={<img src={Voila} alt="Voila" />}
+                    header="Voila!"
+                    paragraph="We automatically create succinct and effective flashcards for you to study"
+                />
+            </div>
+
+            <button className="signup-button">Sign Up</button>
+
+            <input type="file" onChange={handleFile} />
+            <button type="submit" onClick={uploadFile}>Upload</button>
+            <button type="submit" onClick={fetchFlashcards}>Get Flashcards</button>
+
+            <h2>Generated Flashcards</h2>
+            {decks.length > 0 ? (
+                decks.map((deck, deckIndex) => (
+                    <div key={deckIndex} style={{ border: "2px solid black", padding: "15px", marginBottom: "20px" }}>
+                        <h3>Deck: {deck.name}</h3>
+                        {deck.cards.length > 0 ? (
+                            deck.cards.map((card, cardIndex) => (
+                                <div key={cardIndex} style={{ border: "1px solid gray", padding: "10px", marginBottom: "10px" }}>
+                                    <h4>Q: {card.question}</h4>
+                                    <p>A: {card.answer}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No flashcards in this deck.</p>
+                        )}
+                    </div>
+                ))
+            ) : (
+                <p>No decks available yet.</p>
+            )}
         </div>
-
-        <button className="signup-button">Sign Up</button>
-
-        <input type="file" onChange={handleFile} />
-        <button type="submit" onClick={uploadFile}>Upload</button>
-        <button type="submit" onClick={testUploadDataGet}>Get Flashcards</button>
-
-        <h2>Generated Flashcards for {deckName}</h2>
-        {Array.isArray(testThing) && testThing.length > 0 ? (
-            testThing.map((card, index) => (
-                <div key={index} style={{ border: "1px solid black", padding: "10px", marginBottom: "10px"}}>
-                    <h3>Q: {card.question}</h3>
-                    <p>A: {card.answer}</p>
-                </div>
-            ))
-        ) : (
-            <p>No flashcards generated yet.</p>
-        )}
-    </div>
-  )
+    );
 }
 
-export default LandingPage
+export default LandingPage;
