@@ -1,15 +1,19 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 import './EditDeck.css';
 
 function EditDeck(props) {
+    const location = useLocation();
+    const deck = location.state
     let pdfName
     let cards
-    if (props?.pdfName == undefined) { //No prop-types module so this is the default value, this could be changed into a function
+
+    if (deck.name == undefined) { //No prop-types module so this is the default value, this could be changed into a function
         pdfName = 'Unnamed Pdf'
     } else {
-        pdfName = props.pdfName
+        pdfName = deck.name
     }
-    if (props?.cards == undefined) { //No prop-types module so this is the default value
+    if (deck.cards == undefined) { //No prop-types module so this is the default value
         cards = [
             {question: "Yo im a question", answer: "Yo im an answer"},
             {question: "Yo im another question", answer: "Yo im another answer"},
@@ -19,8 +23,15 @@ function EditDeck(props) {
             {question: "wow you got to question three", answer: "impressive you got to answer 3"},
         ];
     } else {
-        cards = props.cards
+        cards = Array.isArray(deck.cards) && deck.cards.length > 0 
+        ? deck.cards 
+        : [
+            { id: 1, question: "Sample Question 1", answer: "Sample Answer 1" },
+            { id: 2, question: "Sample Question 2", answer: "Sample Answer 2" }
+        ]; 
     }
+
+
     const [cardList, setCardList] = useState(cards);
 
     const handleInputChange = (index, field, value) => {
@@ -30,7 +41,7 @@ function EditDeck(props) {
     };
 
     const cardElements = cardList.map((card, index) => (
-        <div key={index} className="card">
+        <div key={index} className="card1">
             <textarea
                 className="question"
                 value={card.question}

@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import './ViewDeck.css';
 
 function ViewDeck() {
+    let navigate = useNavigate();
     const location = useLocation();
+    const { flashdeckId } = useParams();
     const deck = location.state?.deck || { name: "Unknown Deck", cards: [] }; 
 
     const [index, setIndex] = useState(0);
@@ -27,11 +29,17 @@ function ViewDeck() {
         setShowAnswer(false);
     };
 
+    const editHandler = () => {
+        navigate(`/home/${flashdeckId}/edit`,
+            {state: deck}
+        );
+    }
+
     return (
         <div className="card-container">
             <div className="upper-box">
                 <h1>{deck.name}</h1>
-                <button>Edit</button>
+                <button onClick={editHandler}>Edit</button>
             </div>
             {cards.length > 0 ? (
                 <>

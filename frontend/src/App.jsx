@@ -8,6 +8,7 @@
     import SignupPage from './pages/signup/SignupPage'
     import ViewDeck from './components/view-deck/ViewDeck'
     import StartAdding from './components/start-adding/StartAdding'
+    import EditDeck from './components/edit-deck/EditDeck'
 
     function App() {
 
@@ -17,6 +18,7 @@
                     <Route index element={<LandingPage />}/>
                     <Route path="home" element={<ProtectedRoute><HomePage /><StartAdding /></ProtectedRoute>}/>
                     <Route path="home/:flashdeckId" element={<ProtectedRoute><HomePage /><ViewDeck /> </ProtectedRoute>}/>
+                    <Route path="home/:flashdeckId/edit" element={<ProtectedRoute><HomePage /><EditDeck /> </ProtectedRoute>}/>
                     <Route path="login" element={<LoginPage />}/>
                     <Route path="signup" element={<SignupPage />}/>
                 </Routes>
