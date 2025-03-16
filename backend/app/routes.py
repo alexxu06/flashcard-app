@@ -99,20 +99,20 @@ def flashcards():
 
         # Convert decks and their flashcards into a structured JSON format
         flashcards_dict = {
-            "decks": [
-                {
-                    "name": deck.name,
-                    "cards": [
-                        {
-                            "id": card.id,
-                            "question": card.front,
-                            "answer": card.back
-                        } for card in deck.flashcards
-                    ]
-                }
-                for deck in user_decks
-            ]
-        }
+        "decks": [
+            {
+                "id": deck.id,  # Added deck ID here
+                "name": deck.name,
+                "cards": [
+                    {
+                        "id": card.id,
+                        "question": card.front,
+                        "answer": card.back
+                    } for card in deck.flashcards
+                ]
+            }
+            for deck in user_decks
+        ]}   
 
         # print(flashcards_dict)
         
@@ -161,14 +161,15 @@ def flashcards():
         db.session.commit()
 
         result = [{
-                    "name": filename,
-                    "cards": [
-                        {
-                            "id": card.id,
-                            "question": card.front,
-                            "answer": card.back
-                        } for card in new_deck.flashcards
-                    ]
-                }]
+            "id": new_deck.id,  # Added deck ID here
+            "name": filename,
+            "cards": [
+                {
+                    "id": card.id,
+                    "question": card.front,
+                    "answer": card.back
+                } for card in new_deck.flashcards
+            ]
+        }]
 
         return jsonify(result)
