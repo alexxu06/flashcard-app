@@ -9,7 +9,6 @@ function NavigationBar(props) {
     const [btnLabel, setBtnLabel] = useState("");
 
     const checkIfAuthenticated = () => {
-        console.log("bad")
         axios.get("api/authentication")
         .then(function (response) {
             console.log(response)
