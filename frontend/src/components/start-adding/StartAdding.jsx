@@ -7,8 +7,12 @@ function StartAdding() {
   const [file, setFile] = useState(null);
 
   const handleFile = (e) => {
-    setFile(e.target.files[0])
-  }
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      uploadFile(selectedFile);  // Directly call uploadFile without delay
+    }
+  };
 
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -16,11 +20,9 @@ function StartAdding() {
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
 
-  const uploadFile = () => {
+  const uploadFile = (selectedFile) => {
     const formData = new FormData();
-    console.log(file);
-    formData.append("file", file);
-    console.log(formData);
+    formData.append("file", selectedFile);
 
     axios.post("/api/flashcards", formData, {
       withCredentials: true,
@@ -29,39 +31,21 @@ function StartAdding() {
       },
     })
     .then((response) => {
-      console.log(response);
-      let userFlashCards = JSON.parse(localStorage.getItem("flashcards"));
-      userFlashCards.push(response.data);
-      console.log(userFlashCards)
+
+      let userFlashCards = JSON.parse(localStorage.getItem("flashcards")) || [];
+      const newDeck = response.data[0]; // Extract the inner array's first element
+
+      userFlashCards.push(newDeck);
+
       localStorage.setItem("flashcards", JSON.stringify(userFlashCards));
+      
+      setDecks([...userFlashCards]);  // Force re-render of Sidebar by updating state
+      window.dispatchEvent(new Event("storage"));
     })
     .catch((error) => {
       console.log("API Error:", error);
     });
 };
-
-const fetchFlashcards = () => {
-  axios.get("/api/flashcards", {
-    withCredentials: true,
-    headers: {
-      "X-CSRF-TOKEN": getCookie("csrf_access_token"),
-    },
-  })
-  .then((response) => {
-    console.log("API Response:", response.data);
-
-    if (Array.isArray(response.data.decks)) {
-      setDecks(response.data.decks);
-    } else {
-      setDecks([]);
-      console.error("Unexpected data format. Expected array of decks.");
-    }
-  })
-  .catch((error) => {
-    console.log("API Error:", error);
-    setDecks([]);
-  });
-};  
 
   return (
     <div className="start-adding-container">
@@ -88,30 +72,6 @@ const fetchFlashcards = () => {
       </label>
 
       <input id="file" type="file" onChange={handleFile} hidden />
-
-      <button onClick={uploadFile} className="upload-button">Upload</button>
-      <button onClick={fetchFlashcards} className="fetch-button">Get Flashcards</button>
-
-      <h2>Generated Flashcards</h2>
-      {decks.length > 0 ? (
-          decks.map((deck, deckIndex) => (
-            <div key={deckIndex} style={{ border: "2px solid black", padding: "15px", marginBottom: "20px" }}>
-              <h3>Deck: {deck.name}</h3>
-              {deck.cards.length > 0 ? (
-                deck.cards.map((card, cardIndex) => (
-                  <div key={cardIndex} style={{ border: "1px solid gray", padding: "10px", marginBottom: "10px" }}>
-                    <h4>Q: {card.question}</h4>
-                    <p>A: {card.answer}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No flashcards in this deck.</p>
-              )}
-            </div>
-          ))
-      ) : (
-        <p>No decks available yet.</p>
-      )}
     </div>
   );
 }
