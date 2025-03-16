@@ -1,8 +1,11 @@
 import { useState } from "react";
 import "./SideBar.css/";
 import DeckBtn from "../deck-btn/DeckBtn";
+import axios from "axios";
+import { useNavigate } from 'react-router'
 
 function SideBar() {
+    let navigate = useNavigate();
     const [pdfNameList, setpdfNameList] = useState([]);
     const [a, setA] = useState(0);
     const [clickedTarget, setClickedTarget] = useState(null); // Store clicked button reference
@@ -22,9 +25,15 @@ function SideBar() {
         setClickedTarget(newTarget); // Store new clicked button
     };
 
-    const addDeck = () => {
-        setpdfNameList((pdfNames) => [...pdfNames, `pdfName ${a + 1}`]);
-        setA((prevA) => prevA + 1);
+    const addDeckNav = () => {
+        if (clickedTarget) {
+            const clicked_target =  clickedTarget
+            clicked_target.style.backgroundColor = "#ACB1D6";
+            clicked_target.onmouseout = () => (clicked_target.style.backgroundColor = "#ACB1D6");
+            clicked_target.onmouseover = () => (clicked_target.style.backgroundColor = "#8294C4");
+            setClickedTarget(null)
+        }
+        navigate("/home")
     };
 
     return (
@@ -37,7 +46,7 @@ function SideBar() {
                         <DeckBtn key={index} pdfName={pdfName} id={index} onClick={clicked} />
                     ))}
                 </div>
-                <button onClick={addDeck} className="add-new-decks">
+                <button onClick={addDeckNav} className="add-new-decks">
                     Add new decks +
                 </button>
             </div>
