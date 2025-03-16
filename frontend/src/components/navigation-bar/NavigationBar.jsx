@@ -34,13 +34,12 @@ function NavigationBar(props) {
     }
 
     const logout = () => {
-        console.log("good")
         axios.post("/api/logout", {
             withCredentials: true
         })
         .then(function (response) {
+            localStorage.clear()
             window.location.reload()
-            console.log(response)
         })
         .catch(function (error) {
             alert(error.response.data);

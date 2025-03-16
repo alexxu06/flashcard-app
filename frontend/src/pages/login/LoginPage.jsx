@@ -13,6 +13,34 @@ function LoginPage() {
         navigate("/signup")
     }
 
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    const loadFlashCards = () => {
+        axios.get("/api/flashcards", {
+            withCredentials: true,
+            headers: {
+                "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+            },
+        })
+        .then((response) => {
+            console.log("API Response:", response.data);
+
+            if (Array.isArray(response.data.decks)) {
+                localStorage.setItem("flashcards", JSON.stringify(response.data.decks))
+                console.log(localStorage.getItem("load"))
+            } else {
+                console.error("Unexpected data format. Expected array of decks.");
+            }
+        })
+        .catch((error) => {
+            console.log("API Error:", error);
+        });
+    }
+
     const login = () => {
         if (email.trim() == "") {
             alert("Please enter an email");
@@ -27,6 +55,7 @@ function LoginPage() {
             })
             .then(function (response) {
                 console.log(response)
+                loadFlashCards()
                 navigate("/home")
             })
             .catch(function (error) {

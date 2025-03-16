@@ -16,6 +16,7 @@ function ProtectedRoute({children}) {
         .catch(function (error) {
             console.log(error)
             setIsAuthorized(false)
+            localStorage.clear()
         })
     } 
 

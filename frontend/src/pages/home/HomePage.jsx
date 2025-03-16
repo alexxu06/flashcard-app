@@ -6,7 +6,6 @@ import axios from "axios";
 
 
 function HomePage() {
-
   return (
     <>
         <NavigationBar/>
