@@ -36,15 +36,21 @@ function SideBar() {
     };
 
     useEffect(() => {
-        const userFlashCards = JSON.parse(localStorage.getItem("flashcards"))   
-        const listOfLoadedDecks = []
-
-        userFlashCards.forEach(deck => {
-            listOfLoadedDecks.push(deck)
-        })
-
-        setdeckList(listOfLoadedDecks)
-    }, [])
+        const updateDecks = () => {
+            const userFlashCards = JSON.parse(localStorage.getItem("flashcards")) || [];
+            setdeckList(userFlashCards);
+        };
+    
+        // Run initially
+        updateDecks();
+    
+        // Listen for storage changes
+        window.addEventListener("storage", updateDecks);
+    
+        return () => {
+            window.removeEventListener("storage", updateDecks);
+        };
+    }, []);
 
     return (
         <div className="container">
