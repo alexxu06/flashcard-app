@@ -173,3 +173,8 @@ def flashcards():
         }]
 
         return jsonify(result)
+
+@app.route("/api/edit", methods=["POST"])
+@jwt_required()  # Ensure the user is authenticated before uploading a PDF
+def edit():
+    return jsonify({"msg": "success"})
