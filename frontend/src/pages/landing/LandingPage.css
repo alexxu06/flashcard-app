@@ -1,14 +1,27 @@
 .landing-title {
-    color: white; /* Make the text white */
-    font-size: 2.5rem; /* Increase font size */
-    font-weight: bold; /* Make it stand out */
-    margin-top: 2rem; /* Add space above the title */
+    color: white; 
+    font-size: 3.5rem;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.bold-title {
+    font-size: 5rem; 
+    color: var(--lightest); 
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    cursor: default; /* Optional: makes it look interactive */
+}
+
+.bold-title:hover {
+    color: #ffd4a3; /* Or any color you want for the hover */
+    transform: scale(1.05); /* Slight zoom effect */
 }
 
 .landing-container {
     text-align: center;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly; /* <-- center vertically */
     height: 100vh;
     background-color: var(--darkest);
 }
@@ -53,7 +66,7 @@
     align-self: center;
     border: none;
     padding: 1rem;
-    width: 50%;
+    width: 40%;
     border-radius: 8px;
     font-size: 1.5rem;
     font-weight: bold;
