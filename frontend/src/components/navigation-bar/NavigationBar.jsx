@@ -3,7 +3,7 @@ import './NavigationBar.css/'
 import axios from "axios";
 import { useNavigate } from 'react-router'
 
-function NavigationBar() {
+function NavigationBar(props) {
     let navigate = useNavigate();
     const [isAuthorized, setIsAuthorized] = useState(null);
     const [btnLabel, setBtnLabel] = useState("");
