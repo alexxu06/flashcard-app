@@ -14,29 +14,44 @@
     overflow-y: auto;
 }
 
-.confirm-button {
-    color: white;
-    background: var(--second-darkest);
-    border: none;
-    padding: 8px 12px;
-    font-size: 2.5rem;
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Make sure buttons are aligned */
     margin-bottom: 20px;
+}
+
+.confirm-button, .delete-button {
+    color: white;
+    padding: 8px 12px;
+    font-size: 2rem;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    width: 48%; /* Make sure buttons are evenly spaced */
 }
 
-.confirm-button:hover {
+.confirm-button:hover, .delete-button:hover {
     background-color: var(--darkestdarkest);
-    
     transform: scale(1.01); /* Slight zoom-in effect */
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+.confirm-button {
+    background: var(--second-darkest);
+    margin-right: 2%; /* Add some space between the buttons */
+}
+
+.delete-button {
+    background: #f44336; /* Red background for delete button */
+    margin-left: 2%; /* Add some space between the buttons */
 }
 
 .central-container {
     width: 100%;
     background-color: var(--darkest);
-    padding: 20px, 30px, 20px, 30px;
+    padding: 20px 30px;
     border-radius: 12px;
     max-height: 800px; /* Ensure it has a height limit */
     overflow-y: auto; /* Enable vertical scrolling */
@@ -45,13 +60,19 @@
 }
 
 .pdfTitle {
-    width:10%;
+    width: 70%;
+    height: 60px;
+    text-align: center;
+    background: transparent;
+    border: none;
     font-size: 2.5rem;
     font-weight: bold;
     color: white;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     padding-left: 8px;
-    padding-top: 8px;
+    padding-top: 10px;
+    margin-top: 15px;
+    resize: none;
 }
 
 .card1 {
@@ -68,7 +89,7 @@
 .card1 textarea {
     resize: none;
     width: 60%;
-    height: 100px; 
+    height: 100px;
     padding: 8px;
     border: 1px solid #ccc;
     font-size: 1rem;

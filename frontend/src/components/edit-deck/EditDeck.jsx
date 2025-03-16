@@ -7,16 +7,13 @@ function EditDeck(props) {
     const location = useLocation();
     const { flashdeckId, id } = useParams();
     let navigate = useNavigate();
-    const deck = location.state.deck
-    let pdfName
-    let cards
 
-    if (deck.name == undefined) { //No prop-types module so this is the default value, this could be changed into a function
-        pdfName = 'Unnamed Pdf'
-    } else {
-        pdfName = deck.name
-    }
-    if (deck.cards == undefined) { //No prop-types module so this is the default value
+    const deck = location.state.deck;  // Assign 'deck' first
+    const [pdfName, setPdfName] = useState(deck?.name || "Unnamed Pdf"); // Now we can safely use 'deck'
+
+    let cards;
+
+    if (deck.cards == undefined) { // No prop-types module so this is the default value
         cards = [
             {question: "Yo im a question", answer: "Yo im an answer"},
             {question: "Yo im another question", answer: "Yo im another answer"},
@@ -33,7 +30,6 @@ function EditDeck(props) {
             { id: 2, question: "Sample Question 2", answer: "Sample Answer 2" }
         ]; 
     }
-
 
     const [cardList, setCardList] = useState(cards);
 
@@ -90,11 +86,43 @@ function EditDeck(props) {
         });
     }
 
+    const handleDelete = () => {
+        // Remove the deck from localStorage
+        const userFlashCards = JSON.parse(localStorage.getItem("flashcards"));
+        delete userFlashCards[location.state.id]; // Delete the deck by its ID
+        localStorage.setItem("flashcards", JSON.stringify(userFlashCards));
+
+        // Optionally, you could delete it from the server as well
+        axios.post("/api/delete", { id: deck.id }, {
+            withCredentials: true,
+            headers: {
+                "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+            },
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert(error.response.data);
+        });
+
+        // Redirect to home or a list of decks
+        navigate(`/home/${flashdeckId}`);
+    };
+
     return (
         <div className="deck-container">
-            <button onClick={handleConfirm} className="confirm-button">Confirm</button>
+            <div className="button-container">
+                <button onClick={handleConfirm} className="confirm-button">Confirm</button>
+                <button onClick={handleDelete} className="delete-button">Delete</button>
+            </div>
             <div className="central-container">
-                <h2 className="pdfTitle">{pdfName}</h2>
+                <textarea 
+                    spellCheck="false" 
+                    value={pdfName} 
+                    className="pdfTitle"
+                    onChange={(e) => setPdfName(e.target.value)} />
                 {cardElements}
             </div>
         </div>
