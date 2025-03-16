@@ -82,7 +82,6 @@ def logout():
 def check_auth():
     return jsonify({"msg": "success"})
 
-
 # Get pdf 
 @app.route("/api/flashcards", methods=["GET", "POST"])
 @jwt_required()  # Ensure the user is authenticated before uploading a PDF
@@ -125,29 +124,4 @@ def flashcards():
             if os.path.exists(file_path):
                 os.remove(file_path)
 
-        # Get current user ID from token
-        current_user_id = get_jwt_identity()
-
-        user = User.query.filter(User.email==current_user_id).one_or_none()
-        if user is None:
-            return jsonify({"error": "User not found"}), 404
-
-        # Clean filename (remove .pdf)
-        deck_name = filename.rsplit(".", 1)[0]
-
-        # Save deck
-        new_deck = Deck(name=deck_name, user_id=user.id)
-
-        # Save flashcards to Deck
-        new_flashcards = []
-        for card in result:
-            new_card = Flashcard(front=card['question'], back=card['answer'], deck_id=new_deck.id)
-            db.session.add(new_card)  # is this necessary?
-            new_flashcards.append(new_card)
-            
-        new_deck.flaskcards.extend(new_flashcards)
-        
-        db.session.add(new_deck)
-        db.session.commit()
-
-        return jsonify({"gpt_results": result, "deck_name": filename})
+    return jsonify({"gpt_results": result, "deck_name": filename})

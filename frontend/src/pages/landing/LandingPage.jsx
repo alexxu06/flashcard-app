@@ -29,35 +29,50 @@ function LandingPage() {
         formData.append('file', file);
         console.log(formData);
 
-        axios.post("/api/pdf-to-flashcard", formData, {
+        axios.post("/api/flashcards", formData, {
             withCredentials: true,
             headers: {
                 'X-CSRF-TOKEN': getCookie('csrf_access_token'),
             }
         })
         .then(function (response) {
-                console.log("API Response:", response);
-
-                const flashcards = response.data.gpt_results;
-                const deck_name = response.data.deck_name;
-
-                // Remove file extension '.pdf' from deck name
-                const cleanDeckName = deck_name.replace(/\.[^/.]+$/, "");
-                setDeckName(cleanDeckName || "Your Deck");
-
-                if (Array.isArray(flashcards)) {
-                    setTestThing(flashcards);  
-                } else {
-                    setTestThing([]); 
-                    console.error("Unexpected data format. Expected array.");
-                }
-            })
-            .catch(function (error) {
-                console.log("API Error:", error);
-                setTestThing([]);
-                setDeckName("Your Deck");
-            });
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log("API Error:", error);
+        });
     };
+
+    const testUploadDataGet = () => {
+        axios.get("/api/flashcards", {
+            withCredentials: true,
+            headers: {
+                'X-CSRF-TOKEN': getCookie('csrf_access_token'),
+            }
+        })
+        .then(function (response) {
+            console.log("API Response:", response);
+
+            const flashcards = response.data.gpt_results;
+            const deck_name = response.data.deck_name;
+
+            // Remove file extension '.pdf' from deck name
+            const cleanDeckName = deck_name.replace(/\.[^/.]+$/, "");
+            setDeckName(cleanDeckName || "Your Deck");
+
+            if (Array.isArray(flashcards)) {
+                setTestThing(flashcards);  
+            } else {
+                setTestThing([]); 
+                console.error("Unexpected data format. Expected array.");
+            }
+        })
+        .catch(function (error) {
+            console.log("API Error:", error);
+            setTestThing([]);
+            setDeckName("Your Deck");
+        });
+    }
 
   return (
     <div className='landing-container'>
@@ -87,6 +102,7 @@ function LandingPage() {
 
         <input type="file" onChange={handleFile} />
         <button type="submit" onClick={uploadFile}>Upload</button>
+        <button type="submit" onClick={testUploadDataGet}>Get Flashcards</button>
 
         <h2>Generated Flashcards for {deckName}</h2>
         {Array.isArray(testThing) && testThing.length > 0 ? (
