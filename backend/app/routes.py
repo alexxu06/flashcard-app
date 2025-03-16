@@ -94,16 +94,27 @@ def flashcards():
         return jsonify({"error": "User not found"}), 404
 
     if request.method == "GET":
-        # Fetch user's decks and flashcards
-        user_decks = Deck.query.filter_by(user_id=user.id).all()
+        # Fetch user's decks
+        user_decks = user.flashcard_decks
 
-        # Convert decks and their flashcards into a dictionary
+        # Convert decks and their flashcards into a structured JSON format
         flashcards_dict = {
-            deck.name: [{"question": card.front, "answer": card.back} for card in deck.flashcards]
-            for deck in user_decks
+            "decks": [
+                {
+                    "name": deck.name,
+                    "cards": [
+                        {
+                            "id": card.id,
+                            "question": card.front,
+                            "answer": card.back
+                        } for card in deck.flashcards
+                    ]
+                }
+                for deck in user_decks
+            ]
         }
 
-        print(flashcards_dict)
+        # print(flashcards_dict)
         
         return jsonify(flashcards_dict)
 
@@ -124,4 +135,29 @@ def flashcards():
             if os.path.exists(file_path):
                 os.remove(file_path)
 
-    return jsonify({"gpt_results": result, "deck_name": filename})
+        # Get current user ID from token
+        current_user_id = get_jwt_identity()
+
+        user = User.query.filter(User.email==current_user_id).one_or_none()
+        if user is None:
+            return jsonify({"error": "User not found"}), 404
+
+        # Clean filename (remove .pdf)
+        deck_name = filename.rsplit(".", 1)[0]
+
+        # Save deck
+        new_deck = Deck(name=deck_name, user_id=user.id)
+
+        # Save flashcards to Deck
+        new_flashcards = []
+        for card in result:
+            new_card = Flashcard(front=card['question'], back=card['answer'], deck_id=new_deck.id)
+            db.session.add(new_card)  # is this necessary?
+            new_flashcards.append(new_card)
+            
+        new_deck.flashcards.extend(new_flashcards)
+        
+        db.session.add(new_deck)
+        db.session.commit()
+
+        return jsonify({"gpt_results": result, "deck_name": filename})
